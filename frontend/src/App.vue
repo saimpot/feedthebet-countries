@@ -13,8 +13,8 @@ const { user, loadUser, logout } = useAuth()
 const { state, search, filtered, total, load, retry } = useCountries()
 
 onMounted(async () => {
-  await loadUser()
-  await load()
+  // Guests are being redirected to /login by the HTTP client; skip further API calls.
+  if (await loadUser()) await load()
 })
 </script>
 

@@ -6,12 +6,14 @@ export function useAuth() {
   const user = ref<User | null>(null)
   const isAuthenticated = computed(() => user.value !== null)
 
-  async function loadUser(): Promise<void> {
+  /** Resolves to whether a user is signed in. */
+  async function loadUser(): Promise<boolean> {
     try {
       user.value = await fetchCurrentUser()
     } catch {
       user.value = null
     }
+    return user.value !== null
   }
 
   function logout(): void {

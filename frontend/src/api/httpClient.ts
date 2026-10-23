@@ -7,7 +7,22 @@ export interface HttpClient {
   get<T>(path: string): Promise<T>
 }
 
-const redirectToLogin: UnauthenticatedHandler = () => window.location.assign('/login')
+/**
+ * Returns a handler that redirects to the login route at most once. Every /login
+ * request starts a new server session with a fresh OAuth state, so concurrent
+ * redirects (one per failing request) would make the Auth0 callback fail with
+ * "Invalid state".
+ */
+export function createLoginRedirect(
+  redirect: (url: string) => void = (url) => window.location.assign(url),
+): UnauthenticatedHandler {
+  let redirecting = false
+  return () => {
+    if (redirecting) return
+    redirecting = true
+    redirect('/login')
+  }
+}
 
 async function readMessage(response: Response): Promise<string> {
   try {
@@ -24,7 +39,7 @@ async function readMessage(response: Response): Promise<string> {
  * so it is explicit and testable rather than buried in components.
  */
 export function createHttpClient(
-  onUnauthenticated: UnauthenticatedHandler = redirectToLogin,
+  onUnauthenticated: UnauthenticatedHandler = createLoginRedirect(),
   fetchImpl: typeof fetch = (...args) => fetch(...args),
 ): HttpClient {
   return {

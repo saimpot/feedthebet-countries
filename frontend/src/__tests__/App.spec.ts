@@ -4,6 +4,7 @@ import { flushPromises, mount } from '@vue/test-utils'
 import App from '@/App.vue'
 import { fetchCountries } from '@/api/countriesApi'
 import { fetchCurrentUser } from '@/api/authApi'
+import { UnauthenticatedError } from '@/types/api'
 
 vi.mock('@/api/countriesApi')
 vi.mock('@/api/authApi', () => ({
@@ -57,5 +58,13 @@ describe('App', () => {
     await wrapper.get('[role="alert"] button').trigger('click')
     await flushPromises()
     expect(flags(wrapper)).toHaveLength(2)
+  })
+
+  it('does not request countries when the user is not signed in', async () => {
+    vi.mocked(fetchCountries).mockClear()
+    vi.mocked(fetchCurrentUser).mockRejectedValueOnce(new UnauthenticatedError('Unauthenticated.'))
+    mount(App)
+    await flushPromises()
+    expect(fetchCountries).not.toHaveBeenCalled()
   })
 })

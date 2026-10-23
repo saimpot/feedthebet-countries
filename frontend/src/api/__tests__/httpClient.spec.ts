@@ -1,5 +1,5 @@
 import { describe, expect, it, vi } from 'vitest'
-import { createHttpClient } from '@/api/httpClient'
+import { createHttpClient, createLoginRedirect } from '@/api/httpClient'
 import { ApiError, UnauthenticatedError } from '@/types/api'
 
 const respond = (status: number, body: unknown) =>
@@ -50,5 +50,16 @@ describe('httpClient', () => {
       .get('/x')
       .catch((e: unknown) => e)
     expect(error).toMatchObject({ status: 500, message: 'Request failed with status 500' })
+  })
+
+  it('redirects to login only once for concurrent 401 responses', async () => {
+    const redirect = vi.fn<(url: string) => void>()
+    const client = createHttpClient(
+      createLoginRedirect(redirect),
+      respond(401, { message: 'Unauthenticated.' }),
+    )
+
+    await Promise.allSettled([client.get('/api/me'), client.get('/api/countries')])
+    expect(redirect).toHaveBeenCalledExactlyOnceWith('/login')
   })
 })
