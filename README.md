@@ -97,24 +97,27 @@ Run `make help` to list all targets.
    - **Allowed Callback URLs:** `http://localhost:8080/callback`
    - **Allowed Logout URLs:** `http://localhost:8080`
 4. Save changes. Copy **Domain**, **Client ID** and **Client Secret** from the same tab.
-5. Put them into `backend/.env`:
+5. Go to **Applications → APIs → Create API**. Give it a name (for example "FeedTheBet API") and an identifier such as `https://feedthebet-api`, and keep the **RS256** signing algorithm. The identifier is only a label and is never called.
+   This step is required. Without an audience, Auth0 returns an encrypted opaque access token. The Laravel SDK decodes the access token as a JWT, so the callback then fails with *"The JWT string must contain two dots"*.
+6. Put the values into `backend/.env`:
 
    ```dotenv
    AUTH0_DOMAIN=your-tenant.eu.auth0.com
    AUTH0_CLIENT_ID=...
    AUTH0_CLIENT_SECRET=...
+   AUTH0_AUDIENCE=https://feedthebet-api   # the API identifier from step 5
    # optional: dedicated secret for encrypting the SDK session payload (defaults to APP_KEY)
    AUTH0_COOKIE_SECRET=   # e.g. output of: openssl rand -hex 32
    ```
 
    `APP_URL` must stay `http://localhost:8080` (or match the port you use): the callback URL is derived from it.
-6. Clear the config cache so the container picks the values up:
+7. Clear the config cache so the container picks the values up:
 
    ```bash
    docker compose exec --user app php php artisan config:clear
    ```
 
-7. Make sure a user exists (Auth0 dashboard → User Management → Users, or sign up on the login page if your tenant allows it), open <http://localhost:8080>, and log in.
+8. Make sure a user exists (Auth0 dashboard → User Management → Users, or sign up on the login page if your tenant allows it), open <http://localhost:8080>, and log in.
 
 The Auth0 routes (`/login`, `/callback`, `/logout`) are declared explicitly in [backend/routes/web.php](backend/routes/web.php) using the SDK controllers.
 
@@ -344,6 +347,7 @@ Backend variables go in `backend/.env` (template: [backend/.env.example](backend
 | `AUTH0_DOMAIN` | placeholder | Auth0 tenant domain |
 | `AUTH0_CLIENT_ID` | placeholder | Auth0 application client ID |
 | `AUTH0_CLIENT_SECRET` | placeholder | Auth0 application client secret |
+| `AUTH0_AUDIENCE` | `https://feedthebet-api` | Identifier of the Auth0 API (required so the access token is a JWT) |
 | `AUTH0_COOKIE_SECRET` | empty (uses `APP_KEY`) | encrypts the Auth0 SDK session payload |
 | `COUNTRIES_DRIVER` | unset (auto) | `restcountries` or `static`; leave unset to choose by API key |
 | `COUNTRIES_RESTCOUNTRIES_API_KEY` | empty | restcountries v5 bearer key; enables the live provider |
@@ -363,6 +367,7 @@ Backend variables go in `backend/.env` (template: [backend/.env.example](backend
 - **IDE shows missing types in `frontend/`.** `frontend/node_modules` is a named Docker volume, so it is empty on the host. Run `npm install` in `frontend/` on the host as well if you want editor support (Node 22+).
 - **Changed `.env` but nothing happens.** Run `docker compose exec --user app php php artisan config:clear`. Settings are read from the config cache if one exists.
 - **Login loops or "Invalid state"/callback errors.** Check that the Auth0 Allowed Callback URL is exactly `http://localhost:8080/callback`, that `APP_URL` matches the URL in the browser, and that `SESSION_SAME_SITE=lax`. Clear cookies for `localhost`.
+- **"The JWT string must contain two dots" on `/callback`.** `AUTH0_AUDIENCE` is missing, so Auth0 returned an encrypted opaque access token. Create an API in Auth0 (Applications → APIs), set its identifier as `AUTH0_AUDIENCE`, then run `config:clear` and log in again.
 - **Port 8080 is busy.** Set `APP_PORT=8081` in the root `.env`, `make up`, and update `APP_URL` and the Auth0 callback/logout URLs to the new port.
 - **`/api/countries` returns 503.** The live provider failed and nothing is cached: check `COUNTRIES_RESTCOUNTRIES_API_KEY` and the logs (`make logs`; the failure is logged as "Country provider failed."), or unset the key / set `COUNTRIES_DRIVER=static`.
 - **npm crashes with `Cannot read properties of null (reading 'edgesOut')`.** That is npm 10 on this dependency tree; the project's node image installs npm 11, so use `make` / the compose `node` service rather than a local Node's npm 10.
