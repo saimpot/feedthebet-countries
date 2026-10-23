@@ -45,7 +45,7 @@ A small full-stack app for the FTB PHP Full Stack Developer task. A **Laravel 12
 5. The app loads again, `/api/me` returns the user, and `/api/countries` returns the grid data.
 6. `/logout` clears the session and the Auth0 session, then returns to `/`.
 
-All `/api/*` routes (except `/api/health`) go through `auth` (guard `auth0-session`) and `throttle:60,1`.
+All `/api/*` routes except `/api/health` go through `throttle:60,1` first and then `auth` (guard `auth0-session`), so anonymous requests are rate-limited too. If `/api/me` fails for any reason other than 401, the app shows an error with a Retry button.
 
 ## Quick start
 
@@ -74,7 +74,7 @@ cp .env.example .env
 cp backend/.env.example backend/.env
 docker compose build
 docker compose run --rm --user app php composer install --no-interaction
-docker compose run --rm --user app php php artisan key:generate --ansi
+docker compose run --rm --user app php php artisan key:generate --ansi   # only once; make install skips it when APP_KEY is set
 docker compose run --rm node npm install
 docker compose up -d
 
@@ -84,7 +84,7 @@ docker compose exec -T --user app php php artisan countries:warm      # make war
 
 </details>
 
-Services (see [docker-compose.yml](docker-compose.yml)): `nginx` (published on `APP_PORT`, default 8080), `php` (php-fpm), `scheduler` (`php artisan schedule:work`), `redis`, `node` (Vite dev server with HMR). Source code is bind-mounted, so edits show up immediately.
+Services (see [docker-compose.yml](docker-compose.yml)): `nginx` (published on `APP_PORT`, default 8080), `php` (php-fpm), `scheduler` (`php artisan schedule:work`, runs as the `app` user like php-fpm), `redis`, `node` (Vite dev server with HMR). Source code is bind-mounted, so edits show up immediately.
 
 Run `make help` to list all targets.
 
@@ -202,14 +202,16 @@ The cache lives in **Redis database 1**. Inspect it with:
 docker compose exec redis redis-cli -n 1 --scan --pattern '*countries*'
 ```
 
-**Warming.** `php artisan countries:warm` fetches from the configured provider and replaces the cached copy (a failing provider leaves the previous copy untouched). `--fresh` forgets the cache first.
+**Warming.** `php artisan countries:warm` fetches from the configured provider first and only then replaces the cached copy, so a failing provider leaves the previous copy untouched. When caching is disabled it does nothing and says so.
 
 ```bash
 make warm
-docker compose exec --user app php php artisan countries:warm --fresh
+docker compose exec --user app php php artisan countries:warm
 ```
 
-The command is scheduled **daily** in [backend/routes/console.php](backend/routes/console.php) and run by the `scheduler` container (`php artisan schedule:work`).
+When caching is enabled, the command is scheduled **daily** in [backend/routes/console.php](backend/routes/console.php) and run by the `scheduler` container (`php artisan schedule:work`).
+
+**Resilience.** The HTTP provider retries only connection errors and 5xx responses; a 401, 403 or 429 is not retried, so a bad key doesn't burn the request quota. Pagination stops at `countries.drivers.restcountries.max_pages` (default 10) and fails loudly rather than caching a truncated list.
 
 ## API reference
 
@@ -241,7 +243,7 @@ Authenticated user (profile fields from the Auth0 session).
 
 ### `GET /api/countries`
 
-Authenticated. All countries sorted by name.
+Authenticated. All countries, sorted by name ignoring case and accents (so "Åland Islands" follows "Afghanistan"; this uses `ext-intl`'s `Collator`).
 
 `200`
 
@@ -281,12 +283,12 @@ docker compose run --rm --user app php composer lint      # Pint --test (run ./v
 docker compose run --rm --user app php composer analyse   # Larastan (config: backend/phpstan.neon, level 8)
 ```
 
-CI ([.github/workflows/ci.yml](.github/workflows/ci.yml)) runs on every push and pull request: Pint, Larastan and Pest for the backend; ESLint/oxlint, type-check, Vitest and a production build for the frontend; and a build of the production Docker images.
+CI ([.github/workflows/ci.yml](.github/workflows/ci.yml)) runs on pushes to `main` and on pull requests: Pint, Larastan and Pest for the backend; ESLint/oxlint, type-check, Vitest and a production build for the frontend; and a build of the production Docker images.
 
 **What is covered**
 
-- Backend (Pest, no network, array cache): the REST Countries adapter against a v5 fixture (mapping, pagination, malformed rows, failures), the static provider, the cache decorator (cache hit, refresh, forget), the manager resolving each driver, the controller JSON shape, the `countries:warm` command, authentication behaviour (JSON 401 for guests, `/api/me`), the 503 mapping and `/api/health`.
-- Frontend (Vitest): the HTTP client (401 handling, errors), the API facades, `useCountries` (state transitions, accent-insensitive search), the components, and the `App` integration.
+- Backend (Pest, no network): the REST Countries adapter against a v5 fixture (mapping, pagination and its page cap, malformed rows, retry policy, failures), the static provider, accent-insensitive sorting, the cache decorator (fresh hits, stale-while-revalidate with deferred refresh, refresh and forget), the events and listeners, the manager resolving each driver, the controller JSON shape, the `countries:warm` command and its schedule, authentication behaviour (JSON 401 for guests, `/api/me`, middleware order), the 503 mapping and `/api/health`.
+- Frontend (Vitest): the HTTP client (once-only 401 redirect, error messages, network errors), the API facades, `useAuth`, `useCountries` (state transitions, overlapping loads, accent-insensitive search), every component, and the `App` boot sequence (including the error and retry path).
 
 ## Project structure
 
@@ -298,7 +300,8 @@ CI ([.github/workflows/ci.yml](.github/workflows/ci.yml)) runs on every push and
 ├── docker/
 │   ├── php/Dockerfile          dev php-fpm image (pool user "app", uid 1000)
 │   ├── node/Dockerfile         dev node image (npm 11)
-│   ├── nginx/                  default.conf (dev, proxies to Vite), prod.conf
+│   ├── nginx/                  default.conf (dev, proxies to Vite), prod.conf, laravel.conf (shared
+│   │                           Laravel location), forwarded-maps.conf (X-Forwarded-* pass-through)
 │   └── prod/                   production php/nginx Dockerfiles and entrypoint
 ├── .github/workflows/ci.yml    CI pipeline
 ├── backend/                    Laravel 12 (no database)
@@ -308,9 +311,10 @@ CI ([.github/workflows/ci.yml](.github/workflows/ci.yml)) runs on every push and
 │   │   ├── Providers/          HttpCountryProvider (Template Method), RestCountriesProvider (Adapter),
 │   │   │                       StaticCountryProvider, CachedCountryProvider (Decorator)
 │   │   ├── CountryProviderManager.php   Factory Method
+│   │   ├── CountryNameSorter.php        accent-insensitive sort shared by all providers
 │   │   ├── Events/, Listeners/ Observer
 │   │   └── Exceptions/         CountryProviderException
-│   ├── app/Providers/CountryServiceProvider.php   wiring: manager, decorator, listener
+│   ├── app/Providers/CountryServiceProvider.php   wiring: manager, decorator, listeners
 │   ├── app/Http/               invokable controllers (Api/CountryController, Api/MeController), API resources
 │   ├── app/Console/Commands/WarmCountriesCache.php
 │   ├── config/countries.php    driver, per-driver settings, cache TTLs
@@ -322,9 +326,10 @@ CI ([.github/workflows/ci.yml](.github/workflows/ci.yml)) runs on every push and
 │   └── tests/                  Pest (Unit and Feature) and fixtures
 ├── frontend/                   Vue 3 + TypeScript + Vite
 │   └── src/
-│       ├── api/                httpClient (401 policy), countriesApi, authApi (Facade)
+│       ├── api/                httpClient (401 policy), countriesApi, authApi (Facade), routes
 │       ├── composables/        useAuth, useCountries (state union and search)
-│       ├── components/         AppHeader, SearchInput, CountryGrid, CountryCard, LoadingGrid, EmptyState, ErrorState
+│       ├── components/         AppHeader, SearchInput, CardGrid, CountryGrid, CountryCard, LoadingGrid,
+│       │                       EmptyState, ErrorState
 │       ├── types/              API and domain types
 │       └── App.vue
 ```
@@ -375,7 +380,9 @@ Backend variables go in `backend/.env` (template: [backend/.env.example](backend
 
 ## Production
 
-[docker-compose.prod.yml](docker-compose.prod.yml) builds self-contained images (no bind mounts): `docker/prod/php.Dockerfile` (php-fpm with `--no-dev`, optimized autoloader and opcache) and `docker/prod/nginx.Dockerfile` (builds the Vue app and serves the static files, proxying `/api`, `/login`, `/callback` and `/logout` to php-fpm). The PHP entrypoint caches config, routes and events and makes a best-effort `countries:warm` on start. The stack still uses Redis and a `scheduler` container.
+[docker-compose.prod.yml](docker-compose.prod.yml) builds self-contained images (no bind mounts): `docker/prod/php.Dockerfile` (php-fpm with `--no-dev`, optimized autoloader and opcache) and `docker/prod/nginx.Dockerfile` (builds the Vue app and serves the static files, proxying `/api`, `/login`, `/callback` and `/logout` to php-fpm). The PHP entrypoint caches config, routes and events and makes a best-effort `countries:warm` on start. Application code is root-owned in the image; only `storage` and `bootstrap/cache` are writable by `www-data`. The stack still uses Redis and a `scheduler` container.
+
+To put it behind a TLS-terminating proxy, forward `X-Forwarded-Proto` and `X-Forwarded-Host`. nginx passes them on to Laravel, which trusts them because php-fpm is reachable only from nginx; keep it unpublished. Set `SESSION_SECURE_COOKIE=true` and an `https` `APP_URL` there.
 
 ```bash
 make prod-build     # build images
