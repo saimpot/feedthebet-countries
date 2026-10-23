@@ -64,9 +64,11 @@ final readonly class CachedCountryProvider implements RefreshableCountryProvider
      */
     private function fetchRows(): array
     {
-        return $this->inner->all()
-            ->map(fn (Country $country): array => $country->toArray())
-            ->all();
+        return array_values(
+            $this->inner->all()
+                ->map(fn (Country $country): array => $country->toArray())
+                ->all(),
+        );
     }
 
     /**
