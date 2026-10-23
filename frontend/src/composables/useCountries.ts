@@ -1,5 +1,6 @@
 import { computed, ref } from 'vue'
 import { fetchCountries } from '@/api/countriesApi'
+import { errorMessage } from '@/types/api'
 import type { Country } from '@/types/country'
 
 export type CountriesState =
@@ -20,13 +21,14 @@ export function useCountries() {
   const search = ref('')
 
   async function load(): Promise<void> {
+    if (state.value.status === 'loading') return
     state.value = { status: 'loading' }
     try {
       state.value = { status: 'success', countries: await fetchCountries() }
     } catch (error) {
       state.value = {
         status: 'error',
-        message: error instanceof Error ? error.message : 'Something went wrong.',
+        message: errorMessage(error),
       }
     }
   }
@@ -45,6 +47,7 @@ export function useCountries() {
     state,
     search,
     filtered,
+    countries,
     total: computed(() => countries.value.length),
     load,
     retry: load,

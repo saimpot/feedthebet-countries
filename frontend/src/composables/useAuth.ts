@@ -1,19 +1,30 @@
 import { computed, ref } from 'vue'
-import { fetchCurrentUser, logoutUrl } from '@/api/authApi'
+import { fetchCurrentUser } from '@/api/authApi'
+import { logoutUrl } from '@/api/routes'
+import { UnauthenticatedError } from '@/types/api'
 import type { User } from '@/types/user'
+
+export type AuthStatus = 'authenticated' | 'unauthenticated'
 
 export function useAuth() {
   const user = ref<User | null>(null)
   const isAuthenticated = computed(() => user.value !== null)
 
-  /** Resolves to whether a user is signed in. */
-  async function loadUser(): Promise<boolean> {
+  /**
+   * 'unauthenticated' means the HTTP client is already redirecting to login.
+   * Any other failure (5xx, network) is rethrown for the caller to surface.
+   */
+  async function loadUser(): Promise<AuthStatus> {
     try {
       user.value = await fetchCurrentUser()
-    } catch {
-      user.value = null
+      return 'authenticated'
+    } catch (error) {
+      if (error instanceof UnauthenticatedError) {
+        user.value = null
+        return 'unauthenticated'
+      }
+      throw error
     }
-    return user.value !== null
   }
 
   function logout(): void {

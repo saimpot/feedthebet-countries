@@ -1,1 +1,5 @@
 @import 'tailwindcss';
+
+@utility card-surface {
+  @apply flex flex-col gap-3 rounded-xl border border-slate-200 bg-white p-3 dark:border-slate-800 dark:bg-slate-900;
+}

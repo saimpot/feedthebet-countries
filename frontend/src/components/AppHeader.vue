@@ -12,11 +12,11 @@ const emit = defineEmits<{ logout: [] }>()
       <div v-if="user" class="flex items-center gap-3">
         <img
           :src="user.picture"
-          :alt="`Avatar of ${user.name}`"
+          alt=""
           referrerpolicy="no-referrer"
           class="size-8 rounded-full bg-slate-200 object-cover"
         />
-        <span class="hidden text-sm text-slate-700 sm:inline dark:text-slate-300">{{
+        <span class="sr-only text-sm text-slate-700 sm:not-sr-only dark:text-slate-300">{{
           user.name
         }}</span>
         <button

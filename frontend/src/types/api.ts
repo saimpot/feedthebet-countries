@@ -2,10 +2,6 @@ export interface ApiResource<T> {
   data: T
 }
 
-export interface ApiErrorBody {
-  message?: string
-}
-
 export class ApiError extends Error {
   readonly status: number
 
@@ -21,4 +17,8 @@ export class UnauthenticatedError extends ApiError {
     super(401, message)
     this.name = 'UnauthenticatedError'
   }
+}
+
+export function errorMessage(error: unknown): string {
+  return error instanceof Error ? error.message : 'Something went wrong.'
 }

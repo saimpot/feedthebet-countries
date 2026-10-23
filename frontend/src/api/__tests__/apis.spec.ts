@@ -2,7 +2,7 @@ import type { Mock } from 'vitest'
 import type { HttpClient } from '@/api/httpClient'
 import { describe, expect, it, vi } from 'vitest'
 import { fetchCountries } from '@/api/countriesApi'
-import { fetchCurrentUser, loginUrl, logoutUrl } from '@/api/authApi'
+import { fetchCurrentUser } from '@/api/authApi'
 
 type MockedGet = HttpClient['get'] & Mock
 
@@ -24,10 +24,5 @@ describe('authApi', () => {
     const get = stubGet({ data: user })
     await expect(fetchCurrentUser({ get })).resolves.toEqual(user)
     expect(get).toHaveBeenCalledWith('/api/me')
-  })
-
-  it('exposes login and logout urls', () => {
-    expect(loginUrl).toBe('/login')
-    expect(logoutUrl).toBe('/logout')
   })
 })

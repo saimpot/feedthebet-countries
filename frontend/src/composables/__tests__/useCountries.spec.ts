@@ -14,7 +14,9 @@ const make = (code: string, name: string): Country => ({
 const data = [make('CI', "Côte d'Ivoire"), make('DE', 'Germany'), make('FR', 'France')]
 
 describe('useCountries', () => {
-  beforeEach(() => vi.mocked(fetchCountries).mockReset())
+  beforeEach(() => {
+    vi.mocked(fetchCountries).mockReset()
+  })
 
   it('goes idle -> loading -> success', async () => {
     vi.mocked(fetchCountries).mockResolvedValue(data)
@@ -52,5 +54,27 @@ describe('useCountries', () => {
     expect(filtered.value.map((c) => c.code)).toEqual(['DE'])
     search.value = 'zzz'
     expect(filtered.value).toEqual([])
+  })
+
+  it('uses a generic message when the rejection is not an Error', async () => {
+    vi.mocked(fetchCountries).mockRejectedValueOnce('nope')
+    const { state, load } = useCountries()
+    await load()
+    expect(state.value).toEqual({ status: 'error', message: 'Something went wrong.' })
+  })
+
+  it('treats a whitespace-only search as no filter', async () => {
+    vi.mocked(fetchCountries).mockResolvedValue(data)
+    const { search, filtered, load } = useCountries()
+    await load()
+    search.value = '   '
+    expect(filtered.value).toHaveLength(3)
+  })
+
+  it('ignores load calls while a load is in flight', async () => {
+    vi.mocked(fetchCountries).mockResolvedValue(data)
+    const { load } = useCountries()
+    await Promise.all([load(), load()])
+    expect(fetchCountries).toHaveBeenCalledTimes(1)
   })
 })

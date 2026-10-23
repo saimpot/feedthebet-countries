@@ -16,11 +16,10 @@ watch(
 
 <template>
   <li
-    class="flex flex-col gap-3 rounded-xl border border-slate-200 bg-white p-3 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md dark:border-slate-800 dark:bg-slate-900"
+    class="card-surface shadow-sm hover:shadow-md motion-safe:transition motion-safe:hover:-translate-y-0.5"
   >
     <div
       class="relative aspect-3/2 w-full overflow-hidden rounded-md bg-slate-100 dark:bg-slate-800"
-      :aria-busy="imageStatus === 'loading'"
     >
       <div
         v-if="imageStatus === 'loading'"
@@ -34,7 +33,7 @@ watch(
         data-testid="flag-fallback"
         role="img"
         :aria-label="`Flag of ${country.name} unavailable`"
-        class="absolute inset-0 flex flex-col items-center justify-center gap-1 text-slate-400 dark:text-slate-500"
+        class="absolute inset-0 flex flex-col items-center justify-center gap-1 text-slate-600 dark:text-slate-300"
       >
         <svg
           aria-hidden="true"
