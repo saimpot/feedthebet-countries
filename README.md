@@ -244,12 +244,26 @@ docker compose run --rm --user app php composer lint      # Pint --test (run ./v
 docker compose run --rm --user app php composer analyse   # Larastan (config: backend/phpstan.neon, level 8)
 ```
 
-CI ([.github/workflows/ci.yml](.github/workflows/ci.yml)) runs on pushes to `master` and on pull requests: Pint, Larastan and Pest for the backend; ESLint/oxlint, type-check, Vitest and a production build for the frontend; and a build of the production Docker images.
-
 **What is covered**
 
 - Backend (Pest, no network): the REST Countries adapter against a v5 fixture (mapping, pagination and its page cap, malformed rows, retry policy, failures), the static provider, accent-insensitive sorting, the cache decorator (fresh hits, stale-while-revalidate with deferred refresh, refresh and forget), the events and listeners, the manager resolving each driver, the controller JSON shape, the `countries:warm` command and its schedule, authentication behaviour (JSON 401 for guests, `/api/me`, middleware order), the 503 mapping and `/api/health`.
 - Frontend (Vitest): the HTTP client (once-only 401 redirect, error messages, network errors), the API facades, `useAuth`, `useCountries` (state transitions, overlapping loads, accent-insensitive search), every component, and the `App` boot sequence (including the error and retry path).
+
+## CI/CD
+
+GitHub Actions ([.github/workflows/ci.yml](.github/workflows/ci.yml)) runs on every push to `master` and on every pull request. A newer push to the same branch cancels the run still in progress.
+
+| Job | What it checks | Runs |
+|---|---|---|
+| **Backend** (Pint, PHPStan, Pest) | code style, Larastan level 8, the Pest suite, all on PHP 8.3 | immediately |
+| **Frontend** (lint, types, Vitest, build) | oxlint + ESLint, `vue-tsc`, the Vitest suite, a production Vite build, all on Node 22 | immediately, in parallel with Backend |
+| **Production images** | builds both production Docker images (`docker/prod/php.Dockerfile` and `docker/prod/nginx.Dockerfile`) without pushing them | only after Backend and Frontend pass |
+
+> **Note:** *Production images* is the slowest job, so expect it to stay "in progress" for a few minutes after the other two are green. It builds the images from scratch: PHP extensions, Composer and npm dependencies, and the frontend bundle. Later runs reuse the GitHub Actions layer cache and finish faster.
+
+The tests need no secrets or external services: HTTP calls are faked, and the cache and session use in-memory stores.
+
+There is no automatic deployment (CD) yet. The pipeline only proves that the code passes all checks and that the production images build, and nothing is published. Deploying would mean adding a job that pushes the images to a registry and rolls them out to a host.
 
 ## Environment variables
 
