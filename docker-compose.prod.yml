@@ -1,0 +1,60 @@
+# Production stack: images are self-contained (no bind mounts).
+#   docker compose -f docker-compose.prod.yml up -d --build
+# Dev and prod both default to port 8080; override with APP_PORT (e.g. APP_PORT=8081)
+# and use a separate project name (-p feedthebet-prod) to run them side by side.
+name: feedthebet-prod
+
+x-php: &php
+  build:
+    context: .
+    dockerfile: docker/prod/php.Dockerfile
+  image: feedthebet-php:prod
+  env_file: backend/.env
+  environment: &php-env
+    APP_ENV: production
+    APP_DEBUG: "false"
+    LOG_CHANNEL: stderr
+    REDIS_HOST: redis
+  restart: unless-stopped
+  depends_on:
+    redis:
+      condition: service_healthy
+
+services:
+  nginx:
+    build:
+      context: .
+      dockerfile: docker/prod/nginx.Dockerfile
+    image: feedthebet-web:prod
+    ports:
+      - "${APP_PORT:-8080}:80"
+    depends_on:
+      - php
+    restart: unless-stopped
+
+  php:
+    <<: *php
+
+  scheduler:
+    <<: *php
+    command: ["php", "artisan", "schedule:work"]
+    environment:
+      <<: *php-env
+      SKIP_CACHE_BOOT: "1"
+    depends_on:
+      - php
+      - redis
+
+  redis:
+    image: redis:7-alpine
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+    volumes:
+      - redis-data:/data
+
+volumes:
+  redis-data:
