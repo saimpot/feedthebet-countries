@@ -8,7 +8,8 @@ use Auth0\SDK\Configuration\SdkConfiguration;
 return Configuration::VERSION_2 + [
     'registerGuards' => true,
     'registerMiddleware' => true,
-    'registerAuthenticationRoutes' => true,
+    // Login/callback/logout are declared explicitly in routes/web.php (more readable than SDK auto-registration).
+    'registerAuthenticationRoutes' => false,
     'configurationPath' => null,
 
     'guards' => [
@@ -48,7 +49,7 @@ return Configuration::VERSION_2 + [
         'web' => [
             Configuration::CONFIG_STRATEGY => SdkConfiguration::STRATEGY_REGULAR,
             Configuration::CONFIG_COOKIE_SECRET => Configuration::get(Configuration::CONFIG_COOKIE_SECRET, env('APP_KEY')),
-            Configuration::CONFIG_REDIRECT_URI => Configuration::get(Configuration::CONFIG_REDIRECT_URI, env('APP_URL') . '/callback'),
+            Configuration::CONFIG_REDIRECT_URI => Configuration::get(Configuration::CONFIG_REDIRECT_URI, env('APP_URL').'/callback'),
             Configuration::CONFIG_SESSION_STORAGE => Configuration::get(Configuration::CONFIG_SESSION_STORAGE),
             Configuration::CONFIG_SESSION_STORAGE_ID => Configuration::get(Configuration::CONFIG_SESSION_STORAGE_ID),
             Configuration::CONFIG_TRANSIENT_STORAGE => Configuration::get(Configuration::CONFIG_TRANSIENT_STORAGE),
