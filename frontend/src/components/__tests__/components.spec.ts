@@ -26,6 +26,35 @@ describe('CountryCard', () => {
     const wrapper = mount(CountryCard, { props: { country } })
     expect(wrapper.get('img').attributes('alt')).toBe('Black red gold')
   })
+
+  it('shows a skeleton until the flag has loaded, then fades the image in', async () => {
+    const wrapper = mount(CountryCard, { props: { country: germany } })
+    expect(wrapper.find('[data-testid="flag-skeleton"]').exists()).toBe(true)
+    expect(wrapper.get('img').classes()).toContain('opacity-0')
+
+    await wrapper.get('img').trigger('load')
+    expect(wrapper.find('[data-testid="flag-skeleton"]').exists()).toBe(false)
+    expect(wrapper.get('img').classes()).toContain('opacity-100')
+  })
+
+  it('replaces a broken flag with a fallback', async () => {
+    const wrapper = mount(CountryCard, { props: { country: germany } })
+    await wrapper.get('img').trigger('error')
+
+    expect(wrapper.find('img').exists()).toBe(false)
+    expect(wrapper.find('[data-testid="flag-skeleton"]').exists()).toBe(false)
+    expect(wrapper.get('[data-testid="flag-fallback"]').attributes('aria-label')).toBe(
+      'Flag of Germany unavailable',
+    )
+  })
+
+  it('shows the skeleton again when the flag URL changes', async () => {
+    const wrapper = mount(CountryCard, { props: { country: germany } })
+    await wrapper.get('img').trigger('load')
+    await wrapper.setProps({ country: { ...germany, flagUrl: 'de.png' } })
+
+    expect(wrapper.find('[data-testid="flag-skeleton"]').exists()).toBe(true)
+  })
 })
 
 describe('CountryGrid', () => {
