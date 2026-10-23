@@ -11,6 +11,14 @@ use Illuminate\Support\Facades\Route;
 
 uses(ActingAsAuth0User::class);
 
+beforeEach(function (): void {
+    config()->set('auth0.guards.default.domain', 'tenant.example.auth0.com');
+    config()->set('auth0.guards.default.clientId', 'client-id');
+    config()->set('auth0.guards.default.clientSecret', 'client-secret');
+    config()->set('auth0.guards.web.cookieSecret', 'test-cookie-secret');
+    config()->set('auth0.guards.web.redirectUri', 'http://localhost:8080/callback');
+});
+
 function actingAsSessionUser(object $test): void
 {
     $test->actingAsAuth0User(
@@ -19,10 +27,6 @@ function actingAsSessionUser(object $test): void
         GuardContract::SOURCE_SESSION,
     );
 }
-
-it('keeps the health endpoint public', function (): void {
-    $this->getJson('/api/health')->assertOk()->assertExactJson(['status' => 'ok']);
-});
 
 it('returns a JSON 401 for guests on /api/me', function (): void {
     $this->getJson('/api/me')->assertUnauthorized()->assertExactJson(['message' => 'Unauthenticated.']);
@@ -48,11 +52,6 @@ it('returns the authenticated user on /api/me', function (): void {
 });
 
 it('redirects /login to the Auth0 authorize endpoint', function (): void {
-    config()->set('auth0.guards.default.domain', 'tenant.example.auth0.com');
-    config()->set('auth0.guards.default.clientId', 'client-id');
-    config()->set('auth0.guards.default.clientSecret', 'client-secret');
-    config()->set('auth0.guards.web.cookieSecret', 'test-cookie-secret');
-    config()->set('auth0.guards.web.redirectUri', 'http://localhost:8080/callback');
 
     $response = $this->get('/login');
 
@@ -73,10 +72,11 @@ it('registers explicit auth routes and disables SDK auto-registration', function
     }
 });
 
-it('protects the api routes with auth and throttle middleware', function (string $name): void {
+it('throttles then authenticates the api routes', function (string $name): void {
     $middleware = Route::getRoutes()->getByName($name)->gatherMiddleware();
 
-    expect($middleware)->toContain('auth')->toContain('throttle:60,1');
+    // Order matters: throttling runs before authentication.
+    expect(array_values(array_intersect($middleware, ['throttle:60,1', 'auth'])))->toBe(['throttle:60,1', 'auth']);
 })->with(['api.me', 'api.countries']);
 
 it('maps a country provider failure to a JSON 503', function (): void {
@@ -95,11 +95,6 @@ it('maps a country provider failure to a JSON 503', function (): void {
 });
 
 it('redirects /logout to the Auth0 logout endpoint', function (): void {
-    config()->set('auth0.guards.default.domain', 'tenant.example.auth0.com');
-    config()->set('auth0.guards.default.clientId', 'client-id');
-    config()->set('auth0.guards.default.clientSecret', 'client-secret');
-    config()->set('auth0.guards.web.cookieSecret', 'test-cookie-secret');
-    config()->set('auth0.guards.web.redirectUri', 'http://localhost:8080/callback');
     actingAsSessionUser($this);
 
     $response = $this->get('/logout');

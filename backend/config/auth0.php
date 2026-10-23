@@ -8,7 +8,7 @@ use Auth0\SDK\Configuration\SdkConfiguration;
 return Configuration::VERSION_2 + [
     'registerGuards' => true,
     'registerMiddleware' => true,
-    // Login/callback/logout are declared explicitly in routes/web.php (more readable than SDK auto-registration).
+    // Login/callback/logout are declared explicitly in routes/web.php.
     'registerAuthenticationRoutes' => false,
     'configurationPath' => null,
 
@@ -42,14 +42,10 @@ return Configuration::VERSION_2 + [
             Configuration::CONFIG_BACKCHANNEL_LOGOUT_EXPIRES => Configuration::get(Configuration::CONFIG_BACKCHANNEL_LOGOUT_EXPIRES),
         ],
 
-        'api' => [
-            Configuration::CONFIG_STRATEGY => SdkConfiguration::STRATEGY_API,
-        ],
-
         'web' => [
             Configuration::CONFIG_STRATEGY => SdkConfiguration::STRATEGY_REGULAR,
             Configuration::CONFIG_COOKIE_SECRET => Configuration::get(Configuration::CONFIG_COOKIE_SECRET, env('APP_KEY')),
-            Configuration::CONFIG_REDIRECT_URI => Configuration::get(Configuration::CONFIG_REDIRECT_URI, env('APP_URL').'/callback'),
+            Configuration::CONFIG_REDIRECT_URI => Configuration::get(Configuration::CONFIG_REDIRECT_URI, rtrim((string) env('APP_URL', 'http://localhost'), '/').'/callback'),
             Configuration::CONFIG_SESSION_STORAGE => Configuration::get(Configuration::CONFIG_SESSION_STORAGE),
             Configuration::CONFIG_SESSION_STORAGE_ID => Configuration::get(Configuration::CONFIG_SESSION_STORAGE_ID),
             Configuration::CONFIG_TRANSIENT_STORAGE => Configuration::get(Configuration::CONFIG_TRANSIENT_STORAGE),

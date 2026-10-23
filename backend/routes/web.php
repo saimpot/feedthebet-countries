@@ -9,16 +9,16 @@ use Auth0\Laravel\Controllers\LoginController;
 use Auth0\Laravel\Controllers\LogoutController;
 use Illuminate\Support\Facades\Route;
 
-// Auth0 regular web application flow (session based). The controllers come from
-// the SDK; the guard is `auth0-session` (the default guard, see config/auth.php).
+// Auth0 session flow; controllers come from the SDK, the guard is `auth0-session` (config/auth.php).
 Route::get('/login', LoginController::class)->name('login');
 Route::get('/callback', CallbackController::class)->name('callback');
 Route::get('/logout', LogoutController::class)->name('logout');
 
 Route::get('/api/health', fn () => response()->json(['status' => 'ok']))->name('api.health');
 
-// The middleware pipeline is a Chain of Responsibility: auth -> throttle -> controller.
-Route::prefix('api')->middleware(['auth', 'throttle:60,1'])->group(function (): void {
+// Chain of Responsibility: throttle -> auth -> controller. Throttling comes first so
+// unauthenticated floods are limited too.
+Route::prefix('api')->middleware(['throttle:60,1', 'auth'])->group(function (): void {
     Route::get('/me', MeController::class)->name('api.me');
     Route::get('/countries', CountryController::class)->name('api.countries');
 });

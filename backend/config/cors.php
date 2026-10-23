@@ -2,11 +2,7 @@
 
 declare(strict_types=1);
 
-/*
- | The SPA and the API are served from the same origin (nginx on :8080), so
- | cross-origin requests are never needed. No paths are CORS-enabled, which
- | means no Access-Control-* headers are emitted at all.
- */
+// Same-origin SPA + API behind nginx: no path is CORS-enabled, so no Access-Control-* headers are sent.
 return [
     'paths' => [],
     'allowed_methods' => ['*'],
