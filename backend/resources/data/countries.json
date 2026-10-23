@@ -1,0 +1,1514 @@
+[
+    {
+        "code": "AF",
+        "name": "Afghanistan",
+        "flagUrl": "https://flagcdn.com/af.svg",
+        "flagAlt": "Flag of Afghanistan"
+    },
+    {
+        "code": "AL",
+        "name": "Albania",
+        "flagUrl": "https://flagcdn.com/al.svg",
+        "flagAlt": "Flag of Albania"
+    },
+    {
+        "code": "DZ",
+        "name": "Algeria",
+        "flagUrl": "https://flagcdn.com/dz.svg",
+        "flagAlt": "Flag of Algeria"
+    },
+    {
+        "code": "AS",
+        "name": "American Samoa",
+        "flagUrl": "https://flagcdn.com/as.svg",
+        "flagAlt": "Flag of American Samoa"
+    },
+    {
+        "code": "AD",
+        "name": "Andorra",
+        "flagUrl": "https://flagcdn.com/ad.svg",
+        "flagAlt": "Flag of Andorra"
+    },
+    {
+        "code": "AO",
+        "name": "Angola",
+        "flagUrl": "https://flagcdn.com/ao.svg",
+        "flagAlt": "Flag of Angola"
+    },
+    {
+        "code": "AI",
+        "name": "Anguilla",
+        "flagUrl": "https://flagcdn.com/ai.svg",
+        "flagAlt": "Flag of Anguilla"
+    },
+    {
+        "code": "AQ",
+        "name": "Antarctica",
+        "flagUrl": "https://flagcdn.com/aq.svg",
+        "flagAlt": "Flag of Antarctica"
+    },
+    {
+        "code": "AG",
+        "name": "Antigua and Barbuda",
+        "flagUrl": "https://flagcdn.com/ag.svg",
+        "flagAlt": "Flag of Antigua and Barbuda"
+    },
+    {
+        "code": "AR",
+        "name": "Argentina",
+        "flagUrl": "https://flagcdn.com/ar.svg",
+        "flagAlt": "Flag of Argentina"
+    },
+    {
+        "code": "AM",
+        "name": "Armenia",
+        "flagUrl": "https://flagcdn.com/am.svg",
+        "flagAlt": "Flag of Armenia"
+    },
+    {
+        "code": "AW",
+        "name": "Aruba",
+        "flagUrl": "https://flagcdn.com/aw.svg",
+        "flagAlt": "Flag of Aruba"
+    },
+    {
+        "code": "AU",
+        "name": "Australia",
+        "flagUrl": "https://flagcdn.com/au.svg",
+        "flagAlt": "Flag of Australia"
+    },
+    {
+        "code": "AT",
+        "name": "Austria",
+        "flagUrl": "https://flagcdn.com/at.svg",
+        "flagAlt": "Flag of Austria"
+    },
+    {
+        "code": "AZ",
+        "name": "Azerbaijan",
+        "flagUrl": "https://flagcdn.com/az.svg",
+        "flagAlt": "Flag of Azerbaijan"
+    },
+    {
+        "code": "BS",
+        "name": "Bahamas",
+        "flagUrl": "https://flagcdn.com/bs.svg",
+        "flagAlt": "Flag of Bahamas"
+    },
+    {
+        "code": "BH",
+        "name": "Bahrain",
+        "flagUrl": "https://flagcdn.com/bh.svg",
+        "flagAlt": "Flag of Bahrain"
+    },
+    {
+        "code": "BD",
+        "name": "Bangladesh",
+        "flagUrl": "https://flagcdn.com/bd.svg",
+        "flagAlt": "Flag of Bangladesh"
+    },
+    {
+        "code": "BB",
+        "name": "Barbados",
+        "flagUrl": "https://flagcdn.com/bb.svg",
+        "flagAlt": "Flag of Barbados"
+    },
+    {
+        "code": "BY",
+        "name": "Belarus",
+        "flagUrl": "https://flagcdn.com/by.svg",
+        "flagAlt": "Flag of Belarus"
+    },
+    {
+        "code": "BE",
+        "name": "Belgium",
+        "flagUrl": "https://flagcdn.com/be.svg",
+        "flagAlt": "Flag of Belgium"
+    },
+    {
+        "code": "BZ",
+        "name": "Belize",
+        "flagUrl": "https://flagcdn.com/bz.svg",
+        "flagAlt": "Flag of Belize"
+    },
+    {
+        "code": "BJ",
+        "name": "Benin",
+        "flagUrl": "https://flagcdn.com/bj.svg",
+        "flagAlt": "Flag of Benin"
+    },
+    {
+        "code": "BM",
+        "name": "Bermuda",
+        "flagUrl": "https://flagcdn.com/bm.svg",
+        "flagAlt": "Flag of Bermuda"
+    },
+    {
+        "code": "BT",
+        "name": "Bhutan",
+        "flagUrl": "https://flagcdn.com/bt.svg",
+        "flagAlt": "Flag of Bhutan"
+    },
+    {
+        "code": "BO",
+        "name": "Bolivia",
+        "flagUrl": "https://flagcdn.com/bo.svg",
+        "flagAlt": "Flag of Bolivia"
+    },
+    {
+        "code": "BA",
+        "name": "Bosnia and Herzegovina",
+        "flagUrl": "https://flagcdn.com/ba.svg",
+        "flagAlt": "Flag of Bosnia and Herzegovina"
+    },
+    {
+        "code": "BW",
+        "name": "Botswana",
+        "flagUrl": "https://flagcdn.com/bw.svg",
+        "flagAlt": "Flag of Botswana"
+    },
+    {
+        "code": "BV",
+        "name": "Bouvet Island",
+        "flagUrl": "https://flagcdn.com/bv.svg",
+        "flagAlt": "Flag of Bouvet Island"
+    },
+    {
+        "code": "BR",
+        "name": "Brazil",
+        "flagUrl": "https://flagcdn.com/br.svg",
+        "flagAlt": "Flag of Brazil"
+    },
+    {
+        "code": "IO",
+        "name": "British Indian Ocean Territory",
+        "flagUrl": "https://flagcdn.com/io.svg",
+        "flagAlt": "Flag of British Indian Ocean Territory"
+    },
+    {
+        "code": "VG",
+        "name": "British Virgin Islands",
+        "flagUrl": "https://flagcdn.com/vg.svg",
+        "flagAlt": "Flag of British Virgin Islands"
+    },
+    {
+        "code": "BN",
+        "name": "Brunei",
+        "flagUrl": "https://flagcdn.com/bn.svg",
+        "flagAlt": "Flag of Brunei"
+    },
+    {
+        "code": "BG",
+        "name": "Bulgaria",
+        "flagUrl": "https://flagcdn.com/bg.svg",
+        "flagAlt": "Flag of Bulgaria"
+    },
+    {
+        "code": "BF",
+        "name": "Burkina Faso",
+        "flagUrl": "https://flagcdn.com/bf.svg",
+        "flagAlt": "Flag of Burkina Faso"
+    },
+    {
+        "code": "BI",
+        "name": "Burundi",
+        "flagUrl": "https://flagcdn.com/bi.svg",
+        "flagAlt": "Flag of Burundi"
+    },
+    {
+        "code": "KH",
+        "name": "Cambodia",
+        "flagUrl": "https://flagcdn.com/kh.svg",
+        "flagAlt": "Flag of Cambodia"
+    },
+    {
+        "code": "CM",
+        "name": "Cameroon",
+        "flagUrl": "https://flagcdn.com/cm.svg",
+        "flagAlt": "Flag of Cameroon"
+    },
+    {
+        "code": "CA",
+        "name": "Canada",
+        "flagUrl": "https://flagcdn.com/ca.svg",
+        "flagAlt": "Flag of Canada"
+    },
+    {
+        "code": "CV",
+        "name": "Cape Verde",
+        "flagUrl": "https://flagcdn.com/cv.svg",
+        "flagAlt": "Flag of Cape Verde"
+    },
+    {
+        "code": "BQ",
+        "name": "Caribbean Netherlands",
+        "flagUrl": "https://flagcdn.com/bq.svg",
+        "flagAlt": "Flag of Caribbean Netherlands"
+    },
+    {
+        "code": "KY",
+        "name": "Cayman Islands",
+        "flagUrl": "https://flagcdn.com/ky.svg",
+        "flagAlt": "Flag of Cayman Islands"
+    },
+    {
+        "code": "CF",
+        "name": "Central African Republic",
+        "flagUrl": "https://flagcdn.com/cf.svg",
+        "flagAlt": "Flag of Central African Republic"
+    },
+    {
+        "code": "TD",
+        "name": "Chad",
+        "flagUrl": "https://flagcdn.com/td.svg",
+        "flagAlt": "Flag of Chad"
+    },
+    {
+        "code": "CL",
+        "name": "Chile",
+        "flagUrl": "https://flagcdn.com/cl.svg",
+        "flagAlt": "Flag of Chile"
+    },
+    {
+        "code": "CN",
+        "name": "China",
+        "flagUrl": "https://flagcdn.com/cn.svg",
+        "flagAlt": "Flag of China"
+    },
+    {
+        "code": "CX",
+        "name": "Christmas Island",
+        "flagUrl": "https://flagcdn.com/cx.svg",
+        "flagAlt": "Flag of Christmas Island"
+    },
+    {
+        "code": "CC",
+        "name": "Cocos (Keeling) Islands",
+        "flagUrl": "https://flagcdn.com/cc.svg",
+        "flagAlt": "Flag of Cocos (Keeling) Islands"
+    },
+    {
+        "code": "CO",
+        "name": "Colombia",
+        "flagUrl": "https://flagcdn.com/co.svg",
+        "flagAlt": "Flag of Colombia"
+    },
+    {
+        "code": "KM",
+        "name": "Comoros",
+        "flagUrl": "https://flagcdn.com/km.svg",
+        "flagAlt": "Flag of Comoros"
+    },
+    {
+        "code": "CK",
+        "name": "Cook Islands",
+        "flagUrl": "https://flagcdn.com/ck.svg",
+        "flagAlt": "Flag of Cook Islands"
+    },
+    {
+        "code": "CR",
+        "name": "Costa Rica",
+        "flagUrl": "https://flagcdn.com/cr.svg",
+        "flagAlt": "Flag of Costa Rica"
+    },
+    {
+        "code": "HR",
+        "name": "Croatia",
+        "flagUrl": "https://flagcdn.com/hr.svg",
+        "flagAlt": "Flag of Croatia"
+    },
+    {
+        "code": "CU",
+        "name": "Cuba",
+        "flagUrl": "https://flagcdn.com/cu.svg",
+        "flagAlt": "Flag of Cuba"
+    },
+    {
+        "code": "CW",
+        "name": "Curaçao",
+        "flagUrl": "https://flagcdn.com/cw.svg",
+        "flagAlt": "Flag of Curaçao"
+    },
+    {
+        "code": "CY",
+        "name": "Cyprus",
+        "flagUrl": "https://flagcdn.com/cy.svg",
+        "flagAlt": "Flag of Cyprus"
+    },
+    {
+        "code": "CZ",
+        "name": "Czechia",
+        "flagUrl": "https://flagcdn.com/cz.svg",
+        "flagAlt": "Flag of Czechia"
+    },
+    {
+        "code": "CI",
+        "name": "Côte d'Ivoire (Ivory Coast)",
+        "flagUrl": "https://flagcdn.com/ci.svg",
+        "flagAlt": "Flag of Côte d'Ivoire (Ivory Coast)"
+    },
+    {
+        "code": "CD",
+        "name": "DR Congo",
+        "flagUrl": "https://flagcdn.com/cd.svg",
+        "flagAlt": "Flag of DR Congo"
+    },
+    {
+        "code": "DK",
+        "name": "Denmark",
+        "flagUrl": "https://flagcdn.com/dk.svg",
+        "flagAlt": "Flag of Denmark"
+    },
+    {
+        "code": "DJ",
+        "name": "Djibouti",
+        "flagUrl": "https://flagcdn.com/dj.svg",
+        "flagAlt": "Flag of Djibouti"
+    },
+    {
+        "code": "DM",
+        "name": "Dominica",
+        "flagUrl": "https://flagcdn.com/dm.svg",
+        "flagAlt": "Flag of Dominica"
+    },
+    {
+        "code": "DO",
+        "name": "Dominican Republic",
+        "flagUrl": "https://flagcdn.com/do.svg",
+        "flagAlt": "Flag of Dominican Republic"
+    },
+    {
+        "code": "EC",
+        "name": "Ecuador",
+        "flagUrl": "https://flagcdn.com/ec.svg",
+        "flagAlt": "Flag of Ecuador"
+    },
+    {
+        "code": "EG",
+        "name": "Egypt",
+        "flagUrl": "https://flagcdn.com/eg.svg",
+        "flagAlt": "Flag of Egypt"
+    },
+    {
+        "code": "SV",
+        "name": "El Salvador",
+        "flagUrl": "https://flagcdn.com/sv.svg",
+        "flagAlt": "Flag of El Salvador"
+    },
+    {
+        "code": "GQ",
+        "name": "Equatorial Guinea",
+        "flagUrl": "https://flagcdn.com/gq.svg",
+        "flagAlt": "Flag of Equatorial Guinea"
+    },
+    {
+        "code": "ER",
+        "name": "Eritrea",
+        "flagUrl": "https://flagcdn.com/er.svg",
+        "flagAlt": "Flag of Eritrea"
+    },
+    {
+        "code": "EE",
+        "name": "Estonia",
+        "flagUrl": "https://flagcdn.com/ee.svg",
+        "flagAlt": "Flag of Estonia"
+    },
+    {
+        "code": "SZ",
+        "name": "Eswatini (Swaziland)",
+        "flagUrl": "https://flagcdn.com/sz.svg",
+        "flagAlt": "Flag of Eswatini (Swaziland)"
+    },
+    {
+        "code": "ET",
+        "name": "Ethiopia",
+        "flagUrl": "https://flagcdn.com/et.svg",
+        "flagAlt": "Flag of Ethiopia"
+    },
+    {
+        "code": "EU",
+        "name": "European Union",
+        "flagUrl": "https://flagcdn.com/eu.svg",
+        "flagAlt": "Flag of European Union"
+    },
+    {
+        "code": "FK",
+        "name": "Falkland Islands",
+        "flagUrl": "https://flagcdn.com/fk.svg",
+        "flagAlt": "Flag of Falkland Islands"
+    },
+    {
+        "code": "FO",
+        "name": "Faroe Islands",
+        "flagUrl": "https://flagcdn.com/fo.svg",
+        "flagAlt": "Flag of Faroe Islands"
+    },
+    {
+        "code": "FJ",
+        "name": "Fiji",
+        "flagUrl": "https://flagcdn.com/fj.svg",
+        "flagAlt": "Flag of Fiji"
+    },
+    {
+        "code": "FI",
+        "name": "Finland",
+        "flagUrl": "https://flagcdn.com/fi.svg",
+        "flagAlt": "Flag of Finland"
+    },
+    {
+        "code": "FR",
+        "name": "France",
+        "flagUrl": "https://flagcdn.com/fr.svg",
+        "flagAlt": "Flag of France"
+    },
+    {
+        "code": "GF",
+        "name": "French Guiana",
+        "flagUrl": "https://flagcdn.com/gf.svg",
+        "flagAlt": "Flag of French Guiana"
+    },
+    {
+        "code": "PF",
+        "name": "French Polynesia",
+        "flagUrl": "https://flagcdn.com/pf.svg",
+        "flagAlt": "Flag of French Polynesia"
+    },
+    {
+        "code": "TF",
+        "name": "French Southern and Antarctic Lands",
+        "flagUrl": "https://flagcdn.com/tf.svg",
+        "flagAlt": "Flag of French Southern and Antarctic Lands"
+    },
+    {
+        "code": "GA",
+        "name": "Gabon",
+        "flagUrl": "https://flagcdn.com/ga.svg",
+        "flagAlt": "Flag of Gabon"
+    },
+    {
+        "code": "GM",
+        "name": "Gambia",
+        "flagUrl": "https://flagcdn.com/gm.svg",
+        "flagAlt": "Flag of Gambia"
+    },
+    {
+        "code": "GE",
+        "name": "Georgia",
+        "flagUrl": "https://flagcdn.com/ge.svg",
+        "flagAlt": "Flag of Georgia"
+    },
+    {
+        "code": "DE",
+        "name": "Germany",
+        "flagUrl": "https://flagcdn.com/de.svg",
+        "flagAlt": "Flag of Germany"
+    },
+    {
+        "code": "GH",
+        "name": "Ghana",
+        "flagUrl": "https://flagcdn.com/gh.svg",
+        "flagAlt": "Flag of Ghana"
+    },
+    {
+        "code": "GI",
+        "name": "Gibraltar",
+        "flagUrl": "https://flagcdn.com/gi.svg",
+        "flagAlt": "Flag of Gibraltar"
+    },
+    {
+        "code": "GR",
+        "name": "Greece",
+        "flagUrl": "https://flagcdn.com/gr.svg",
+        "flagAlt": "Flag of Greece"
+    },
+    {
+        "code": "GL",
+        "name": "Greenland",
+        "flagUrl": "https://flagcdn.com/gl.svg",
+        "flagAlt": "Flag of Greenland"
+    },
+    {
+        "code": "GD",
+        "name": "Grenada",
+        "flagUrl": "https://flagcdn.com/gd.svg",
+        "flagAlt": "Flag of Grenada"
+    },
+    {
+        "code": "GP",
+        "name": "Guadeloupe",
+        "flagUrl": "https://flagcdn.com/gp.svg",
+        "flagAlt": "Flag of Guadeloupe"
+    },
+    {
+        "code": "GU",
+        "name": "Guam",
+        "flagUrl": "https://flagcdn.com/gu.svg",
+        "flagAlt": "Flag of Guam"
+    },
+    {
+        "code": "GT",
+        "name": "Guatemala",
+        "flagUrl": "https://flagcdn.com/gt.svg",
+        "flagAlt": "Flag of Guatemala"
+    },
+    {
+        "code": "GG",
+        "name": "Guernsey",
+        "flagUrl": "https://flagcdn.com/gg.svg",
+        "flagAlt": "Flag of Guernsey"
+    },
+    {
+        "code": "GN",
+        "name": "Guinea",
+        "flagUrl": "https://flagcdn.com/gn.svg",
+        "flagAlt": "Flag of Guinea"
+    },
+    {
+        "code": "GW",
+        "name": "Guinea-Bissau",
+        "flagUrl": "https://flagcdn.com/gw.svg",
+        "flagAlt": "Flag of Guinea-Bissau"
+    },
+    {
+        "code": "GY",
+        "name": "Guyana",
+        "flagUrl": "https://flagcdn.com/gy.svg",
+        "flagAlt": "Flag of Guyana"
+    },
+    {
+        "code": "HT",
+        "name": "Haiti",
+        "flagUrl": "https://flagcdn.com/ht.svg",
+        "flagAlt": "Flag of Haiti"
+    },
+    {
+        "code": "HM",
+        "name": "Heard Island and McDonald Islands",
+        "flagUrl": "https://flagcdn.com/hm.svg",
+        "flagAlt": "Flag of Heard Island and McDonald Islands"
+    },
+    {
+        "code": "HN",
+        "name": "Honduras",
+        "flagUrl": "https://flagcdn.com/hn.svg",
+        "flagAlt": "Flag of Honduras"
+    },
+    {
+        "code": "HK",
+        "name": "Hong Kong",
+        "flagUrl": "https://flagcdn.com/hk.svg",
+        "flagAlt": "Flag of Hong Kong"
+    },
+    {
+        "code": "HU",
+        "name": "Hungary",
+        "flagUrl": "https://flagcdn.com/hu.svg",
+        "flagAlt": "Flag of Hungary"
+    },
+    {
+        "code": "IS",
+        "name": "Iceland",
+        "flagUrl": "https://flagcdn.com/is.svg",
+        "flagAlt": "Flag of Iceland"
+    },
+    {
+        "code": "IN",
+        "name": "India",
+        "flagUrl": "https://flagcdn.com/in.svg",
+        "flagAlt": "Flag of India"
+    },
+    {
+        "code": "ID",
+        "name": "Indonesia",
+        "flagUrl": "https://flagcdn.com/id.svg",
+        "flagAlt": "Flag of Indonesia"
+    },
+    {
+        "code": "IR",
+        "name": "Iran",
+        "flagUrl": "https://flagcdn.com/ir.svg",
+        "flagAlt": "Flag of Iran"
+    },
+    {
+        "code": "IQ",
+        "name": "Iraq",
+        "flagUrl": "https://flagcdn.com/iq.svg",
+        "flagAlt": "Flag of Iraq"
+    },
+    {
+        "code": "IE",
+        "name": "Ireland",
+        "flagUrl": "https://flagcdn.com/ie.svg",
+        "flagAlt": "Flag of Ireland"
+    },
+    {
+        "code": "IM",
+        "name": "Isle of Man",
+        "flagUrl": "https://flagcdn.com/im.svg",
+        "flagAlt": "Flag of Isle of Man"
+    },
+    {
+        "code": "IL",
+        "name": "Israel",
+        "flagUrl": "https://flagcdn.com/il.svg",
+        "flagAlt": "Flag of Israel"
+    },
+    {
+        "code": "IT",
+        "name": "Italy",
+        "flagUrl": "https://flagcdn.com/it.svg",
+        "flagAlt": "Flag of Italy"
+    },
+    {
+        "code": "JM",
+        "name": "Jamaica",
+        "flagUrl": "https://flagcdn.com/jm.svg",
+        "flagAlt": "Flag of Jamaica"
+    },
+    {
+        "code": "JP",
+        "name": "Japan",
+        "flagUrl": "https://flagcdn.com/jp.svg",
+        "flagAlt": "Flag of Japan"
+    },
+    {
+        "code": "JE",
+        "name": "Jersey",
+        "flagUrl": "https://flagcdn.com/je.svg",
+        "flagAlt": "Flag of Jersey"
+    },
+    {
+        "code": "JO",
+        "name": "Jordan",
+        "flagUrl": "https://flagcdn.com/jo.svg",
+        "flagAlt": "Flag of Jordan"
+    },
+    {
+        "code": "KZ",
+        "name": "Kazakhstan",
+        "flagUrl": "https://flagcdn.com/kz.svg",
+        "flagAlt": "Flag of Kazakhstan"
+    },
+    {
+        "code": "KE",
+        "name": "Kenya",
+        "flagUrl": "https://flagcdn.com/ke.svg",
+        "flagAlt": "Flag of Kenya"
+    },
+    {
+        "code": "KI",
+        "name": "Kiribati",
+        "flagUrl": "https://flagcdn.com/ki.svg",
+        "flagAlt": "Flag of Kiribati"
+    },
+    {
+        "code": "XK",
+        "name": "Kosovo",
+        "flagUrl": "https://flagcdn.com/xk.svg",
+        "flagAlt": "Flag of Kosovo"
+    },
+    {
+        "code": "KW",
+        "name": "Kuwait",
+        "flagUrl": "https://flagcdn.com/kw.svg",
+        "flagAlt": "Flag of Kuwait"
+    },
+    {
+        "code": "KG",
+        "name": "Kyrgyzstan",
+        "flagUrl": "https://flagcdn.com/kg.svg",
+        "flagAlt": "Flag of Kyrgyzstan"
+    },
+    {
+        "code": "LA",
+        "name": "Laos",
+        "flagUrl": "https://flagcdn.com/la.svg",
+        "flagAlt": "Flag of Laos"
+    },
+    {
+        "code": "LV",
+        "name": "Latvia",
+        "flagUrl": "https://flagcdn.com/lv.svg",
+        "flagAlt": "Flag of Latvia"
+    },
+    {
+        "code": "LB",
+        "name": "Lebanon",
+        "flagUrl": "https://flagcdn.com/lb.svg",
+        "flagAlt": "Flag of Lebanon"
+    },
+    {
+        "code": "LS",
+        "name": "Lesotho",
+        "flagUrl": "https://flagcdn.com/ls.svg",
+        "flagAlt": "Flag of Lesotho"
+    },
+    {
+        "code": "LR",
+        "name": "Liberia",
+        "flagUrl": "https://flagcdn.com/lr.svg",
+        "flagAlt": "Flag of Liberia"
+    },
+    {
+        "code": "LY",
+        "name": "Libya",
+        "flagUrl": "https://flagcdn.com/ly.svg",
+        "flagAlt": "Flag of Libya"
+    },
+    {
+        "code": "LI",
+        "name": "Liechtenstein",
+        "flagUrl": "https://flagcdn.com/li.svg",
+        "flagAlt": "Flag of Liechtenstein"
+    },
+    {
+        "code": "LT",
+        "name": "Lithuania",
+        "flagUrl": "https://flagcdn.com/lt.svg",
+        "flagAlt": "Flag of Lithuania"
+    },
+    {
+        "code": "LU",
+        "name": "Luxembourg",
+        "flagUrl": "https://flagcdn.com/lu.svg",
+        "flagAlt": "Flag of Luxembourg"
+    },
+    {
+        "code": "MO",
+        "name": "Macau",
+        "flagUrl": "https://flagcdn.com/mo.svg",
+        "flagAlt": "Flag of Macau"
+    },
+    {
+        "code": "MG",
+        "name": "Madagascar",
+        "flagUrl": "https://flagcdn.com/mg.svg",
+        "flagAlt": "Flag of Madagascar"
+    },
+    {
+        "code": "MW",
+        "name": "Malawi",
+        "flagUrl": "https://flagcdn.com/mw.svg",
+        "flagAlt": "Flag of Malawi"
+    },
+    {
+        "code": "MY",
+        "name": "Malaysia",
+        "flagUrl": "https://flagcdn.com/my.svg",
+        "flagAlt": "Flag of Malaysia"
+    },
+    {
+        "code": "MV",
+        "name": "Maldives",
+        "flagUrl": "https://flagcdn.com/mv.svg",
+        "flagAlt": "Flag of Maldives"
+    },
+    {
+        "code": "ML",
+        "name": "Mali",
+        "flagUrl": "https://flagcdn.com/ml.svg",
+        "flagAlt": "Flag of Mali"
+    },
+    {
+        "code": "MT",
+        "name": "Malta",
+        "flagUrl": "https://flagcdn.com/mt.svg",
+        "flagAlt": "Flag of Malta"
+    },
+    {
+        "code": "MH",
+        "name": "Marshall Islands",
+        "flagUrl": "https://flagcdn.com/mh.svg",
+        "flagAlt": "Flag of Marshall Islands"
+    },
+    {
+        "code": "MQ",
+        "name": "Martinique",
+        "flagUrl": "https://flagcdn.com/mq.svg",
+        "flagAlt": "Flag of Martinique"
+    },
+    {
+        "code": "MR",
+        "name": "Mauritania",
+        "flagUrl": "https://flagcdn.com/mr.svg",
+        "flagAlt": "Flag of Mauritania"
+    },
+    {
+        "code": "MU",
+        "name": "Mauritius",
+        "flagUrl": "https://flagcdn.com/mu.svg",
+        "flagAlt": "Flag of Mauritius"
+    },
+    {
+        "code": "YT",
+        "name": "Mayotte",
+        "flagUrl": "https://flagcdn.com/yt.svg",
+        "flagAlt": "Flag of Mayotte"
+    },
+    {
+        "code": "MX",
+        "name": "Mexico",
+        "flagUrl": "https://flagcdn.com/mx.svg",
+        "flagAlt": "Flag of Mexico"
+    },
+    {
+        "code": "FM",
+        "name": "Micronesia",
+        "flagUrl": "https://flagcdn.com/fm.svg",
+        "flagAlt": "Flag of Micronesia"
+    },
+    {
+        "code": "MD",
+        "name": "Moldova",
+        "flagUrl": "https://flagcdn.com/md.svg",
+        "flagAlt": "Flag of Moldova"
+    },
+    {
+        "code": "MC",
+        "name": "Monaco",
+        "flagUrl": "https://flagcdn.com/mc.svg",
+        "flagAlt": "Flag of Monaco"
+    },
+    {
+        "code": "MN",
+        "name": "Mongolia",
+        "flagUrl": "https://flagcdn.com/mn.svg",
+        "flagAlt": "Flag of Mongolia"
+    },
+    {
+        "code": "ME",
+        "name": "Montenegro",
+        "flagUrl": "https://flagcdn.com/me.svg",
+        "flagAlt": "Flag of Montenegro"
+    },
+    {
+        "code": "MS",
+        "name": "Montserrat",
+        "flagUrl": "https://flagcdn.com/ms.svg",
+        "flagAlt": "Flag of Montserrat"
+    },
+    {
+        "code": "MA",
+        "name": "Morocco",
+        "flagUrl": "https://flagcdn.com/ma.svg",
+        "flagAlt": "Flag of Morocco"
+    },
+    {
+        "code": "MZ",
+        "name": "Mozambique",
+        "flagUrl": "https://flagcdn.com/mz.svg",
+        "flagAlt": "Flag of Mozambique"
+    },
+    {
+        "code": "MM",
+        "name": "Myanmar",
+        "flagUrl": "https://flagcdn.com/mm.svg",
+        "flagAlt": "Flag of Myanmar"
+    },
+    {
+        "code": "NA",
+        "name": "Namibia",
+        "flagUrl": "https://flagcdn.com/na.svg",
+        "flagAlt": "Flag of Namibia"
+    },
+    {
+        "code": "NR",
+        "name": "Nauru",
+        "flagUrl": "https://flagcdn.com/nr.svg",
+        "flagAlt": "Flag of Nauru"
+    },
+    {
+        "code": "NP",
+        "name": "Nepal",
+        "flagUrl": "https://flagcdn.com/np.svg",
+        "flagAlt": "Flag of Nepal"
+    },
+    {
+        "code": "NL",
+        "name": "Netherlands",
+        "flagUrl": "https://flagcdn.com/nl.svg",
+        "flagAlt": "Flag of Netherlands"
+    },
+    {
+        "code": "NC",
+        "name": "New Caledonia",
+        "flagUrl": "https://flagcdn.com/nc.svg",
+        "flagAlt": "Flag of New Caledonia"
+    },
+    {
+        "code": "NZ",
+        "name": "New Zealand",
+        "flagUrl": "https://flagcdn.com/nz.svg",
+        "flagAlt": "Flag of New Zealand"
+    },
+    {
+        "code": "NI",
+        "name": "Nicaragua",
+        "flagUrl": "https://flagcdn.com/ni.svg",
+        "flagAlt": "Flag of Nicaragua"
+    },
+    {
+        "code": "NE",
+        "name": "Niger",
+        "flagUrl": "https://flagcdn.com/ne.svg",
+        "flagAlt": "Flag of Niger"
+    },
+    {
+        "code": "NG",
+        "name": "Nigeria",
+        "flagUrl": "https://flagcdn.com/ng.svg",
+        "flagAlt": "Flag of Nigeria"
+    },
+    {
+        "code": "NU",
+        "name": "Niue",
+        "flagUrl": "https://flagcdn.com/nu.svg",
+        "flagAlt": "Flag of Niue"
+    },
+    {
+        "code": "NF",
+        "name": "Norfolk Island",
+        "flagUrl": "https://flagcdn.com/nf.svg",
+        "flagAlt": "Flag of Norfolk Island"
+    },
+    {
+        "code": "KP",
+        "name": "North Korea",
+        "flagUrl": "https://flagcdn.com/kp.svg",
+        "flagAlt": "Flag of North Korea"
+    },
+    {
+        "code": "MK",
+        "name": "North Macedonia",
+        "flagUrl": "https://flagcdn.com/mk.svg",
+        "flagAlt": "Flag of North Macedonia"
+    },
+    {
+        "code": "MP",
+        "name": "Northern Mariana Islands",
+        "flagUrl": "https://flagcdn.com/mp.svg",
+        "flagAlt": "Flag of Northern Mariana Islands"
+    },
+    {
+        "code": "NO",
+        "name": "Norway",
+        "flagUrl": "https://flagcdn.com/no.svg",
+        "flagAlt": "Flag of Norway"
+    },
+    {
+        "code": "OM",
+        "name": "Oman",
+        "flagUrl": "https://flagcdn.com/om.svg",
+        "flagAlt": "Flag of Oman"
+    },
+    {
+        "code": "PK",
+        "name": "Pakistan",
+        "flagUrl": "https://flagcdn.com/pk.svg",
+        "flagAlt": "Flag of Pakistan"
+    },
+    {
+        "code": "PW",
+        "name": "Palau",
+        "flagUrl": "https://flagcdn.com/pw.svg",
+        "flagAlt": "Flag of Palau"
+    },
+    {
+        "code": "PS",
+        "name": "Palestine",
+        "flagUrl": "https://flagcdn.com/ps.svg",
+        "flagAlt": "Flag of Palestine"
+    },
+    {
+        "code": "PA",
+        "name": "Panama",
+        "flagUrl": "https://flagcdn.com/pa.svg",
+        "flagAlt": "Flag of Panama"
+    },
+    {
+        "code": "PG",
+        "name": "Papua New Guinea",
+        "flagUrl": "https://flagcdn.com/pg.svg",
+        "flagAlt": "Flag of Papua New Guinea"
+    },
+    {
+        "code": "PY",
+        "name": "Paraguay",
+        "flagUrl": "https://flagcdn.com/py.svg",
+        "flagAlt": "Flag of Paraguay"
+    },
+    {
+        "code": "PE",
+        "name": "Peru",
+        "flagUrl": "https://flagcdn.com/pe.svg",
+        "flagAlt": "Flag of Peru"
+    },
+    {
+        "code": "PH",
+        "name": "Philippines",
+        "flagUrl": "https://flagcdn.com/ph.svg",
+        "flagAlt": "Flag of Philippines"
+    },
+    {
+        "code": "PN",
+        "name": "Pitcairn Islands",
+        "flagUrl": "https://flagcdn.com/pn.svg",
+        "flagAlt": "Flag of Pitcairn Islands"
+    },
+    {
+        "code": "PL",
+        "name": "Poland",
+        "flagUrl": "https://flagcdn.com/pl.svg",
+        "flagAlt": "Flag of Poland"
+    },
+    {
+        "code": "PT",
+        "name": "Portugal",
+        "flagUrl": "https://flagcdn.com/pt.svg",
+        "flagAlt": "Flag of Portugal"
+    },
+    {
+        "code": "PR",
+        "name": "Puerto Rico",
+        "flagUrl": "https://flagcdn.com/pr.svg",
+        "flagAlt": "Flag of Puerto Rico"
+    },
+    {
+        "code": "QA",
+        "name": "Qatar",
+        "flagUrl": "https://flagcdn.com/qa.svg",
+        "flagAlt": "Flag of Qatar"
+    },
+    {
+        "code": "CG",
+        "name": "Republic of the Congo",
+        "flagUrl": "https://flagcdn.com/cg.svg",
+        "flagAlt": "Flag of Republic of the Congo"
+    },
+    {
+        "code": "RO",
+        "name": "Romania",
+        "flagUrl": "https://flagcdn.com/ro.svg",
+        "flagAlt": "Flag of Romania"
+    },
+    {
+        "code": "RU",
+        "name": "Russia",
+        "flagUrl": "https://flagcdn.com/ru.svg",
+        "flagAlt": "Flag of Russia"
+    },
+    {
+        "code": "RW",
+        "name": "Rwanda",
+        "flagUrl": "https://flagcdn.com/rw.svg",
+        "flagAlt": "Flag of Rwanda"
+    },
+    {
+        "code": "RE",
+        "name": "Réunion",
+        "flagUrl": "https://flagcdn.com/re.svg",
+        "flagAlt": "Flag of Réunion"
+    },
+    {
+        "code": "BL",
+        "name": "Saint Barthélemy",
+        "flagUrl": "https://flagcdn.com/bl.svg",
+        "flagAlt": "Flag of Saint Barthélemy"
+    },
+    {
+        "code": "SH",
+        "name": "Saint Helena, Ascension and Tristan da Cunha",
+        "flagUrl": "https://flagcdn.com/sh.svg",
+        "flagAlt": "Flag of Saint Helena, Ascension and Tristan da Cunha"
+    },
+    {
+        "code": "KN",
+        "name": "Saint Kitts and Nevis",
+        "flagUrl": "https://flagcdn.com/kn.svg",
+        "flagAlt": "Flag of Saint Kitts and Nevis"
+    },
+    {
+        "code": "LC",
+        "name": "Saint Lucia",
+        "flagUrl": "https://flagcdn.com/lc.svg",
+        "flagAlt": "Flag of Saint Lucia"
+    },
+    {
+        "code": "MF",
+        "name": "Saint Martin",
+        "flagUrl": "https://flagcdn.com/mf.svg",
+        "flagAlt": "Flag of Saint Martin"
+    },
+    {
+        "code": "PM",
+        "name": "Saint Pierre and Miquelon",
+        "flagUrl": "https://flagcdn.com/pm.svg",
+        "flagAlt": "Flag of Saint Pierre and Miquelon"
+    },
+    {
+        "code": "VC",
+        "name": "Saint Vincent and the Grenadines",
+        "flagUrl": "https://flagcdn.com/vc.svg",
+        "flagAlt": "Flag of Saint Vincent and the Grenadines"
+    },
+    {
+        "code": "WS",
+        "name": "Samoa",
+        "flagUrl": "https://flagcdn.com/ws.svg",
+        "flagAlt": "Flag of Samoa"
+    },
+    {
+        "code": "SM",
+        "name": "San Marino",
+        "flagUrl": "https://flagcdn.com/sm.svg",
+        "flagAlt": "Flag of San Marino"
+    },
+    {
+        "code": "SA",
+        "name": "Saudi Arabia",
+        "flagUrl": "https://flagcdn.com/sa.svg",
+        "flagAlt": "Flag of Saudi Arabia"
+    },
+    {
+        "code": "SN",
+        "name": "Senegal",
+        "flagUrl": "https://flagcdn.com/sn.svg",
+        "flagAlt": "Flag of Senegal"
+    },
+    {
+        "code": "RS",
+        "name": "Serbia",
+        "flagUrl": "https://flagcdn.com/rs.svg",
+        "flagAlt": "Flag of Serbia"
+    },
+    {
+        "code": "SC",
+        "name": "Seychelles",
+        "flagUrl": "https://flagcdn.com/sc.svg",
+        "flagAlt": "Flag of Seychelles"
+    },
+    {
+        "code": "SL",
+        "name": "Sierra Leone",
+        "flagUrl": "https://flagcdn.com/sl.svg",
+        "flagAlt": "Flag of Sierra Leone"
+    },
+    {
+        "code": "SG",
+        "name": "Singapore",
+        "flagUrl": "https://flagcdn.com/sg.svg",
+        "flagAlt": "Flag of Singapore"
+    },
+    {
+        "code": "SX",
+        "name": "Sint Maarten",
+        "flagUrl": "https://flagcdn.com/sx.svg",
+        "flagAlt": "Flag of Sint Maarten"
+    },
+    {
+        "code": "SK",
+        "name": "Slovakia",
+        "flagUrl": "https://flagcdn.com/sk.svg",
+        "flagAlt": "Flag of Slovakia"
+    },
+    {
+        "code": "SI",
+        "name": "Slovenia",
+        "flagUrl": "https://flagcdn.com/si.svg",
+        "flagAlt": "Flag of Slovenia"
+    },
+    {
+        "code": "SB",
+        "name": "Solomon Islands",
+        "flagUrl": "https://flagcdn.com/sb.svg",
+        "flagAlt": "Flag of Solomon Islands"
+    },
+    {
+        "code": "SO",
+        "name": "Somalia",
+        "flagUrl": "https://flagcdn.com/so.svg",
+        "flagAlt": "Flag of Somalia"
+    },
+    {
+        "code": "ZA",
+        "name": "South Africa",
+        "flagUrl": "https://flagcdn.com/za.svg",
+        "flagAlt": "Flag of South Africa"
+    },
+    {
+        "code": "GS",
+        "name": "South Georgia",
+        "flagUrl": "https://flagcdn.com/gs.svg",
+        "flagAlt": "Flag of South Georgia"
+    },
+    {
+        "code": "KR",
+        "name": "South Korea",
+        "flagUrl": "https://flagcdn.com/kr.svg",
+        "flagAlt": "Flag of South Korea"
+    },
+    {
+        "code": "SS",
+        "name": "South Sudan",
+        "flagUrl": "https://flagcdn.com/ss.svg",
+        "flagAlt": "Flag of South Sudan"
+    },
+    {
+        "code": "ES",
+        "name": "Spain",
+        "flagUrl": "https://flagcdn.com/es.svg",
+        "flagAlt": "Flag of Spain"
+    },
+    {
+        "code": "LK",
+        "name": "Sri Lanka",
+        "flagUrl": "https://flagcdn.com/lk.svg",
+        "flagAlt": "Flag of Sri Lanka"
+    },
+    {
+        "code": "SD",
+        "name": "Sudan",
+        "flagUrl": "https://flagcdn.com/sd.svg",
+        "flagAlt": "Flag of Sudan"
+    },
+    {
+        "code": "SR",
+        "name": "Suriname",
+        "flagUrl": "https://flagcdn.com/sr.svg",
+        "flagAlt": "Flag of Suriname"
+    },
+    {
+        "code": "SJ",
+        "name": "Svalbard and Jan Mayen",
+        "flagUrl": "https://flagcdn.com/sj.svg",
+        "flagAlt": "Flag of Svalbard and Jan Mayen"
+    },
+    {
+        "code": "SE",
+        "name": "Sweden",
+        "flagUrl": "https://flagcdn.com/se.svg",
+        "flagAlt": "Flag of Sweden"
+    },
+    {
+        "code": "CH",
+        "name": "Switzerland",
+        "flagUrl": "https://flagcdn.com/ch.svg",
+        "flagAlt": "Flag of Switzerland"
+    },
+    {
+        "code": "SY",
+        "name": "Syria",
+        "flagUrl": "https://flagcdn.com/sy.svg",
+        "flagAlt": "Flag of Syria"
+    },
+    {
+        "code": "ST",
+        "name": "São Tomé and Príncipe",
+        "flagUrl": "https://flagcdn.com/st.svg",
+        "flagAlt": "Flag of São Tomé and Príncipe"
+    },
+    {
+        "code": "TW",
+        "name": "Taiwan",
+        "flagUrl": "https://flagcdn.com/tw.svg",
+        "flagAlt": "Flag of Taiwan"
+    },
+    {
+        "code": "TJ",
+        "name": "Tajikistan",
+        "flagUrl": "https://flagcdn.com/tj.svg",
+        "flagAlt": "Flag of Tajikistan"
+    },
+    {
+        "code": "TZ",
+        "name": "Tanzania",
+        "flagUrl": "https://flagcdn.com/tz.svg",
+        "flagAlt": "Flag of Tanzania"
+    },
+    {
+        "code": "TH",
+        "name": "Thailand",
+        "flagUrl": "https://flagcdn.com/th.svg",
+        "flagAlt": "Flag of Thailand"
+    },
+    {
+        "code": "TL",
+        "name": "Timor-Leste",
+        "flagUrl": "https://flagcdn.com/tl.svg",
+        "flagAlt": "Flag of Timor-Leste"
+    },
+    {
+        "code": "TG",
+        "name": "Togo",
+        "flagUrl": "https://flagcdn.com/tg.svg",
+        "flagAlt": "Flag of Togo"
+    },
+    {
+        "code": "TK",
+        "name": "Tokelau",
+        "flagUrl": "https://flagcdn.com/tk.svg",
+        "flagAlt": "Flag of Tokelau"
+    },
+    {
+        "code": "TO",
+        "name": "Tonga",
+        "flagUrl": "https://flagcdn.com/to.svg",
+        "flagAlt": "Flag of Tonga"
+    },
+    {
+        "code": "TT",
+        "name": "Trinidad and Tobago",
+        "flagUrl": "https://flagcdn.com/tt.svg",
+        "flagAlt": "Flag of Trinidad and Tobago"
+    },
+    {
+        "code": "TN",
+        "name": "Tunisia",
+        "flagUrl": "https://flagcdn.com/tn.svg",
+        "flagAlt": "Flag of Tunisia"
+    },
+    {
+        "code": "TR",
+        "name": "Turkey",
+        "flagUrl": "https://flagcdn.com/tr.svg",
+        "flagAlt": "Flag of Turkey"
+    },
+    {
+        "code": "TM",
+        "name": "Turkmenistan",
+        "flagUrl": "https://flagcdn.com/tm.svg",
+        "flagAlt": "Flag of Turkmenistan"
+    },
+    {
+        "code": "TC",
+        "name": "Turks and Caicos Islands",
+        "flagUrl": "https://flagcdn.com/tc.svg",
+        "flagAlt": "Flag of Turks and Caicos Islands"
+    },
+    {
+        "code": "TV",
+        "name": "Tuvalu",
+        "flagUrl": "https://flagcdn.com/tv.svg",
+        "flagAlt": "Flag of Tuvalu"
+    },
+    {
+        "code": "UG",
+        "name": "Uganda",
+        "flagUrl": "https://flagcdn.com/ug.svg",
+        "flagAlt": "Flag of Uganda"
+    },
+    {
+        "code": "UA",
+        "name": "Ukraine",
+        "flagUrl": "https://flagcdn.com/ua.svg",
+        "flagAlt": "Flag of Ukraine"
+    },
+    {
+        "code": "AE",
+        "name": "United Arab Emirates",
+        "flagUrl": "https://flagcdn.com/ae.svg",
+        "flagAlt": "Flag of United Arab Emirates"
+    },
+    {
+        "code": "GB",
+        "name": "United Kingdom",
+        "flagUrl": "https://flagcdn.com/gb.svg",
+        "flagAlt": "Flag of United Kingdom"
+    },
+    {
+        "code": "UN",
+        "name": "United Nations",
+        "flagUrl": "https://flagcdn.com/un.svg",
+        "flagAlt": "Flag of United Nations"
+    },
+    {
+        "code": "US",
+        "name": "United States",
+        "flagUrl": "https://flagcdn.com/us.svg",
+        "flagAlt": "Flag of United States"
+    },
+    {
+        "code": "UM",
+        "name": "United States Minor Outlying Islands",
+        "flagUrl": "https://flagcdn.com/um.svg",
+        "flagAlt": "Flag of United States Minor Outlying Islands"
+    },
+    {
+        "code": "VI",
+        "name": "United States Virgin Islands",
+        "flagUrl": "https://flagcdn.com/vi.svg",
+        "flagAlt": "Flag of United States Virgin Islands"
+    },
+    {
+        "code": "UY",
+        "name": "Uruguay",
+        "flagUrl": "https://flagcdn.com/uy.svg",
+        "flagAlt": "Flag of Uruguay"
+    },
+    {
+        "code": "UZ",
+        "name": "Uzbekistan",
+        "flagUrl": "https://flagcdn.com/uz.svg",
+        "flagAlt": "Flag of Uzbekistan"
+    },
+    {
+        "code": "VU",
+        "name": "Vanuatu",
+        "flagUrl": "https://flagcdn.com/vu.svg",
+        "flagAlt": "Flag of Vanuatu"
+    },
+    {
+        "code": "VA",
+        "name": "Vatican City (Holy See)",
+        "flagUrl": "https://flagcdn.com/va.svg",
+        "flagAlt": "Flag of Vatican City (Holy See)"
+    },
+    {
+        "code": "VE",
+        "name": "Venezuela",
+        "flagUrl": "https://flagcdn.com/ve.svg",
+        "flagAlt": "Flag of Venezuela"
+    },
+    {
+        "code": "VN",
+        "name": "Vietnam",
+        "flagUrl": "https://flagcdn.com/vn.svg",
+        "flagAlt": "Flag of Vietnam"
+    },
+    {
+        "code": "WF",
+        "name": "Wallis and Futuna",
+        "flagUrl": "https://flagcdn.com/wf.svg",
+        "flagAlt": "Flag of Wallis and Futuna"
+    },
+    {
+        "code": "EH",
+        "name": "Western Sahara",
+        "flagUrl": "https://flagcdn.com/eh.svg",
+        "flagAlt": "Flag of Western Sahara"
+    },
+    {
+        "code": "YE",
+        "name": "Yemen",
+        "flagUrl": "https://flagcdn.com/ye.svg",
+        "flagAlt": "Flag of Yemen"
+    },
+    {
+        "code": "ZM",
+        "name": "Zambia",
+        "flagUrl": "https://flagcdn.com/zm.svg",
+        "flagAlt": "Flag of Zambia"
+    },
+    {
+        "code": "ZW",
+        "name": "Zimbabwe",
+        "flagUrl": "https://flagcdn.com/zw.svg",
+        "flagAlt": "Flag of Zimbabwe"
+    },
+    {
+        "code": "AX",
+        "name": "Åland Islands",
+        "flagUrl": "https://flagcdn.com/ax.svg",
+        "flagAlt": "Flag of Åland Islands"
+    }
+]
