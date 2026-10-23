@@ -10,9 +10,6 @@ use Illuminate\Support\Collection;
 
 interface RefreshableCountryProvider extends CountryProvider
 {
-    /**
-     * Drop any stored copy of the data.
-     */
     public function forget(): void;
 
     /**

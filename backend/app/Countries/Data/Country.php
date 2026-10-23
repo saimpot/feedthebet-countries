@@ -14,6 +14,20 @@ final readonly class Country
     ) {}
 
     /**
+     * Builds a country from untrusted values; null when a required one is not a non-empty string.
+     */
+    public static function tryCreate(mixed $code, mixed $name, mixed $flagUrl, mixed $flagAlt = null): ?self
+    {
+        foreach ([$code, $name, $flagUrl] as $required) {
+            if (! is_string($required) || $required === '') {
+                return null;
+            }
+        }
+
+        return new self($code, $name, $flagUrl, is_string($flagAlt) && $flagAlt !== '' ? $flagAlt : null);
+    }
+
+    /**
      * @param  array{code: string, name: string, flagUrl: string, flagAlt?: string|null}  $data
      */
     public static function fromArray(array $data): self

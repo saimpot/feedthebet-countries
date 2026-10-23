@@ -19,6 +19,11 @@ final class CountryProviderException extends RuntimeException
         return new self("Country provider [{$provider}] returned an unexpected payload.");
     }
 
+    public static function tooManyPages(string $provider, int $maxPages): self
+    {
+        return new self("Country provider [{$provider}] still reported more data after {$maxPages} pages.");
+    }
+
     public static function unreadableSource(string $provider, string $path): self
     {
         return new self("Country provider [{$provider}] could not read data from [{$path}].");

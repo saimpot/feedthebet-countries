@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 use App\Countries\Contracts\CountryProvider;
 use App\Countries\CountryProviderManager;
+use App\Countries\Events\CountriesFetched;
 use App\Countries\Events\CountryProviderFailed;
 use App\Countries\Exceptions\CountryProviderException;
 use App\Countries\Providers\CachedCountryProvider;
@@ -58,4 +59,27 @@ it('logs a warning when the provider fails', function () {
 
 it('registers the failure listener exactly once', function () {
     expect(Event::getListeners(CountryProviderFailed::class))->toHaveCount(1);
+});
+
+it('logs an info entry when countries are fetched', function () {
+    $this->mock(LoggerInterface::class)
+        ->shouldReceive('info')
+        ->once()
+        ->with('Countries fetched.', ['provider' => 'static', 'count' => 250]);
+
+    Event::dispatch(new CountriesFetched('static', 250));
+});
+
+it('registers the fetched listener exactly once', function () {
+    expect(Event::getListeners(CountriesFetched::class))->toHaveCount(1);
+});
+
+it('dispatches CountriesFetched for every provider, including the static one', function () {
+    config()->set('countries.driver', 'static');
+    config()->set('countries.cache.enabled', false);
+    Event::fake([CountriesFetched::class]);
+
+    app(CountryProvider::class)->all();
+
+    Event::assertDispatched(CountriesFetched::class, fn (CountriesFetched $event) => $event->provider === 'static' && $event->count > 240);
 });

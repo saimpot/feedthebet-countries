@@ -84,10 +84,6 @@ final class RestCountriesProvider extends HttpCountryProvider
         $flagUrl = $row['flag']['url_svg'] ?? $row['flag']['url_png'] ?? null;
         $flagAlt = $row['flag']['description'] ?? null;
 
-        if (! is_string($code) || ! is_string($name) || ! is_string($flagUrl) || $code === '' || $name === '' || $flagUrl === '') {
-            return null;
-        }
-
-        return new Country($code, $name, $flagUrl, is_string($flagAlt) && $flagAlt !== '' ? $flagAlt : null);
+        return Country::tryCreate($code, $name, $flagUrl, $flagAlt);
     }
 }

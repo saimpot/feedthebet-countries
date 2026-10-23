@@ -104,7 +104,16 @@ it('follows pagination until every country is fetched', function () {
     $http->assertSent(fn (Request $request) => (int) $request['offset'] === 4);
 });
 
-it('retries transient failures', function () {
+/**
+ * @param  list<array<string, mixed>>  $objects
+ * @return array<string, mixed>
+ */
+function restCountriesPage(array $objects, mixed $total): array
+{
+    return ['data' => ['objects' => $objects, 'meta' => ['total' => $total]]];
+}
+
+it('retries server errors', function () {
     $http = new Factory;
     $http->preventStrayRequests();
     $http->fake(['api.test/*' => $http->sequence()
@@ -116,6 +125,97 @@ it('retries transient failures', function () {
     $http->assertSentCount(2);
 });
 
+it('gives up after the configured retries on persistent server errors', function () {
+    $http = fakedHttp(['api.test/*' => Factory::response('', 500)]);
+    [$provider] = makeRestCountriesProvider($http, ['retries' => 3]);
+
+    expect(fn () => $provider->all())->toThrow(CountryProviderException::class);
+    $http->assertSentCount(3);
+});
+
+it('retries connection errors', function () {
+    $http = new Factory;
+    $http->preventStrayRequests();
+    $http->fake(['api.test/*' => $http->sequence()
+        ->pushFailedConnection()
+        ->push(restCountriesFixture())]);
+    [$provider] = makeRestCountriesProvider($http, ['retries' => 2]);
+
+    expect($provider->all())->toHaveCount(4);
+    $http->assertSentCount(2);
+});
+
+it('does not retry client errors, which would only burn the API quota', function (int $status) {
+    $http = fakedHttp(['api.test/*' => Factory::response('', $status)]);
+    [$provider] = makeRestCountriesProvider($http, ['retries' => 3]);
+
+    expect(fn () => $provider->all())->toThrow(CountryProviderException::class);
+    $http->assertSentCount(1);
+})->with([401, 403, 429]);
+
+it('sorts regardless of accents and case', function () {
+    $row = fn (string $code, string $name) => [
+        'names' => ['common' => $name],
+        'codes' => ['alpha_2' => $code],
+        'flag' => ['url_svg' => "https://flags.test/{$code}.svg"],
+    ];
+    $http = fakedHttp(['api.test/*' => Factory::response(restCountriesPage([
+        $row('ZW', 'Zimbabwe'),
+        $row('AX', 'Åland Islands'),
+        $row('CU', 'Cuba'),
+        $row('CI', 'Côte d\'Ivoire'),
+        $row('AF', 'Afghanistan'),
+        $row('CA', 'Canada'),
+    ], 6))]);
+    [$provider] = makeRestCountriesProvider($http);
+
+    expect($provider->all()->pluck('name')->all())
+        ->toBe(['Afghanistan', 'Åland Islands', 'Canada', 'Côte d\'Ivoire', 'Cuba', 'Zimbabwe']);
+});
+
+describe('pagination guards', function () {
+    $row = fn (string $code) => [
+        'names' => ['common' => "Country {$code}"],
+        'codes' => ['alpha_2' => $code],
+        'flag' => ['url_svg' => "https://flags.test/{$code}.svg"],
+    ];
+
+    it('stops at max_pages and fails when the API still claims more data', function () use ($row) {
+        $http = fakedHttp(['api.test/*' => Factory::response(restCountriesPage([$row('AA'), $row('BB')], 1000))]);
+        [$provider, $dispatched] = makeRestCountriesProvider($http, ['page_size' => 2, 'max_pages' => 3]);
+
+        expect(fn () => $provider->all())->toThrow(CountryProviderException::class, 'after 3 pages');
+        $http->assertSentCount(3);
+        expect($dispatched[0])->toBeInstanceOf(CountryProviderFailed::class);
+    });
+
+    it('does not trip the cap when the last allowed page is the final one', function () use ($row) {
+        $http = fakedHttp(['api.test/*' => Factory::response(restCountriesPage([$row('AA'), $row('BB')], 2))]);
+        [$provider] = makeRestCountriesProvider($http, ['page_size' => 2, 'max_pages' => 1]);
+
+        expect($provider->all())->toHaveCount(2);
+    });
+
+    it('stops when a page comes back empty even if the total claims more', function () {
+        $http = fakedHttp(['api.test/*' => Factory::response(restCountriesPage([], 500))]);
+        [$provider] = makeRestCountriesProvider($http);
+
+        expect($provider->all())->toBeEmpty();
+        $http->assertSentCount(1);
+    });
+
+    it('treats a missing or non-integer total as the last page', function (mixed $total) use ($row) {
+        $http = fakedHttp(['api.test/*' => Factory::response(restCountriesPage([$row('AA')], $total))]);
+        [$provider] = makeRestCountriesProvider($http);
+
+        expect($provider->all())->toHaveCount(1);
+        $http->assertSentCount(1);
+    })->with([
+        'missing' => [null],
+        'string' => ['500'],
+        'float' => [500.5],
+    ]);
+});
 it('dispatches CountriesFetched on success', function () {
     $http = fakedHttp(['api.test/*' => Factory::response(restCountriesFixture())]);
     [$provider, $dispatched] = makeRestCountriesProvider($http);

@@ -6,7 +6,9 @@ namespace App\Providers;
 
 use App\Countries\Contracts\CountryProvider;
 use App\Countries\CountryProviderManager;
+use App\Countries\Events\CountriesFetched;
 use App\Countries\Events\CountryProviderFailed;
+use App\Countries\Listeners\LogCountriesFetched;
 use App\Countries\Listeners\LogCountryProviderFailure;
 use App\Countries\Providers\CachedCountryProvider;
 use Illuminate\Cache\CacheManager;
@@ -31,7 +33,7 @@ final class CountryServiceProvider extends ServiceProvider
 
             $store = Config::get('countries.cache.store');
 
-            /** @var CacheRepository $cache CacheManager::store() returns the concrete repository, which provides flexible(). */
+            /** @var CacheRepository $cache the concrete repository, which provides flexible() */
             $cache = $app->make(CacheManager::class)->store(is_string($store) ? $store : null);
 
             return new CachedCountryProvider(
@@ -46,6 +48,7 @@ final class CountryServiceProvider extends ServiceProvider
 
     public function boot(): void
     {
+        Event::listen(CountriesFetched::class, LogCountriesFetched::class);
         Event::listen(CountryProviderFailed::class, LogCountryProviderFailure::class);
     }
 }

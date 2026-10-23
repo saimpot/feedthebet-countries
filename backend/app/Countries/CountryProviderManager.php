@@ -35,6 +35,9 @@ final class CountryProviderManager extends Manager
 
     protected function createStaticDriver(): CountryProvider
     {
-        return new StaticCountryProvider((string) $this->config->get('countries.drivers.static.path'));
+        return new StaticCountryProvider(
+            (string) $this->config->get('countries.drivers.static.path'),
+            $this->container->make(Dispatcher::class),
+        );
     }
 }
