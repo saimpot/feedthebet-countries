@@ -2,11 +2,6 @@
 
 A small full-stack app for the FTB PHP Full Stack Developer task. A **Laravel 12** backend fetches country names and flags from [restcountries.com](https://restcountries.com) and exposes them as a JSON API. A **Vue 3** single-page app, available only to logged-in users, shows them as a searchable grid. Login is handled by **Auth0** (regular web application, server-side session). The country source sits behind an interface, so it can be swapped by changing one environment variable, and responses are cached in Redis with stale-while-revalidate. Everything runs in Docker.
 
-
-## Contents
-
-[Tech stack](#tech-stack) · [Architecture](#architecture) · [Quick start](#quick-start) · [Auth0 setup](#auth0-setup) · [Country data providers](#country-data-providers) · [Caching](#caching) · [API reference](#api-reference) · [Testing and quality](#testing-and-quality) · [Project structure](#project-structure) · [Design patterns](#design-patterns) · [Environment variables](#environment-variables) · [Troubleshooting](#troubleshooting) · [Production](#production)
-
 ## Tech stack
 
 | Layer | Technology |
@@ -15,37 +10,6 @@ A small full-stack app for the FTB PHP Full Stack Developer task. A **Laravel 12
 | Frontend | Vue 3.5 (`<script setup>`, TypeScript 6), Vite 8, Tailwind CSS 4, Vitest 4, ESLint 10 + oxlint, vue-tsc |
 | Infrastructure | Docker Compose, nginx 1.27, Redis 7 (cache and sessions), Node 22 for the dev container |
 | Data | restcountries.com v5 API, with a bundled static dataset as fallback. No SQL database. |
-
-## Architecture
-
-```
-                      http://localhost:8080
- Browser ───────────────────────────────────────►  nginx (one origin: no CORS, cookies just work)
-                                                     │
-                      /  (everything else)           │        /api/*  /login  /callback  /logout
-              ┌──────────────────────────────────────┴─────────────────────────────────┐
-              ▼                                                                        ▼
-   dev:  Vite dev server (node :5173, HMR)                              php-fpm :9000  (Laravel 12)
-   prod: static build served by nginx                                       │            │
-                                                                            ▼            ▼
-                                                                    Redis (sessions   restcountries.com v5
-                                                                     db 0, cache db 1)  (or bundled static data)
-                                                                            ▲
-                                           scheduler container: php artisan schedule:work (countries:warm daily)
-
-   Browser ◄──► Auth0 (login page), redirected to and from by Laravel
-```
-
-**Request and auth flow** (Auth0 regular web application, session cookie, no tokens in the browser):
-
-1. The Vue app boots and calls `GET /api/me`.
-2. A guest gets `401 {"message":"Unauthenticated."}`. The frontend HTTP client then navigates to `/login`.
-3. `/login` (Auth0 SDK controller) redirects to the Auth0 Universal Login page.
-4. After login, Auth0 redirects to `/callback`. Laravel stores the session in Redis and redirects to `/`.
-5. The app loads again, `/api/me` returns the user, and `/api/countries` returns the grid data.
-6. `/logout` clears the session and the Auth0 session, then returns to `/`.
-
-All `/api/*` routes except `/api/health` go through `throttle:60,1` first and then `auth` (guard `auth0-session`), so anonymous requests are rate-limited too. If `/api/me` fails for any reason other than 401, the app shows an error with a Retry button.
 
 ## Quick start
 
@@ -123,11 +87,7 @@ The Auth0 routes (`/login`, `/callback`, `/logout`) are declared explicitly in [
 
 ## Country data providers
 
-The task points at `https://restcountries.com/v3.1/all`. **That API version is deprecated**: the URL now answers with a deprecation notice instead of data. This app therefore uses **v5** (`GET https://api.restcountries.com/countries/v5`), which:
-
-- requires an API key (`Authorization: Bearer <key>`); a free key (1000 requests/month) is available at <https://restcountries.com/sign-up>;
-- is paginated (the free plan allows `limit` up to 100), which `HttpCountryProvider` handles through its `nextPageQuery()` hook;
-- returns rows with `names.common`, `codes.alpha_2` and `flag.url_svg|url_png|description`.
+The task points at `https://restcountries.com/v3.1/all`. **That API version is deprecated**: the URL now answers with a deprecation notice instead of data. This app therefore uses **v5** (`GET https://api.restcountries.com/countries/v5`), which requires an API key (`Authorization: Bearer <key>`). A free key (1000 requests/month) is available at <https://restcountries.com/sign-up>.
 
 **Which provider is used** ([backend/config/countries.php](backend/config/countries.php)):
 
@@ -141,6 +101,7 @@ If the live provider fails and nothing is cached, `/api/countries` responds with
 
 ### Adding a new provider in 3 steps
 
+The controller only knows the `CountryProvider` interface.
 
 **1. Implement the interface**, or, for an HTTP API, extend `HttpCountryProvider` and fill in the provider-specific steps (it already handles requests, retries, error translation, sorting and events):
 
@@ -290,56 +251,6 @@ CI ([.github/workflows/ci.yml](.github/workflows/ci.yml)) runs on pushes to `mas
 - Backend (Pest, no network): the REST Countries adapter against a v5 fixture (mapping, pagination and its page cap, malformed rows, retry policy, failures), the static provider, accent-insensitive sorting, the cache decorator (fresh hits, stale-while-revalidate with deferred refresh, refresh and forget), the events and listeners, the manager resolving each driver, the controller JSON shape, the `countries:warm` command and its schedule, authentication behaviour (JSON 401 for guests, `/api/me`, middleware order), the 503 mapping and `/api/health`.
 - Frontend (Vitest): the HTTP client (once-only 401 redirect, error messages, network errors), the API facades, `useAuth`, `useCountries` (state transitions, overlapping loads, accent-insensitive search), every component, and the `App` boot sequence (including the error and retry path).
 
-## Project structure
-
-```
-.
-├── docker-compose.yml          dev stack: nginx, php, scheduler, redis, node
-├── docker-compose.prod.yml     production stack (self-contained images)
-├── Makefile                    make help
-├── docker/
-│   ├── php/Dockerfile          dev php-fpm image (pool user "app", uid 1000)
-│   ├── node/Dockerfile         dev node image (npm 11)
-│   ├── nginx/                  default.conf (dev, proxies to Vite), prod.conf, laravel.conf (shared
-│   │                           Laravel location), forwarded-maps.conf (X-Forwarded-* pass-through)
-│   └── prod/                   production php/nginx Dockerfiles and entrypoint
-├── .github/workflows/ci.yml    CI pipeline
-├── backend/                    Laravel 12 (no database)
-│   ├── app/Countries/          self-contained domain module
-│   │   ├── Contracts/          CountryProvider (Strategy), RefreshableCountryProvider
-│   │   ├── Data/Country.php    readonly DTO
-│   │   ├── Providers/          HttpCountryProvider (Template Method), RestCountriesProvider (Adapter),
-│   │   │                       StaticCountryProvider, CachedCountryProvider (Decorator)
-│   │   ├── CountryProviderManager.php   Factory Method
-│   │   ├── CountryNameSorter.php        accent-insensitive sort shared by all providers
-│   │   ├── Events/, Listeners/ Observer
-│   │   └── Exceptions/         CountryProviderException
-│   ├── app/Providers/CountryServiceProvider.php   wiring: manager, decorator, listeners
-│   ├── app/Http/               invokable controllers (Api/CountryController, Api/MeController), API resources
-│   ├── app/Console/Commands/WarmCountriesCache.php
-│   ├── config/countries.php    driver, per-driver settings, cache TTLs
-│   ├── config/auth0.php        Auth0 SDK configuration
-│   ├── resources/data/countries.json   bundled fallback dataset
-│   ├── routes/web.php          Auth0 routes and the /api group
-│   ├── routes/console.php      daily countries:warm schedule
-│   ├── bootstrap/app.php       JSON 401 for the API, CountryProviderException → 503, trusted proxy
-│   └── tests/                  Pest (Unit and Feature) and fixtures
-├── frontend/                   Vue 3 + TypeScript + Vite
-│   └── src/
-│       ├── api/                httpClient (401 policy), countriesApi, authApi (Facade), routes
-│       ├── composables/        useAuth, useCountries (state union and search)
-│       ├── components/         AppHeader, SearchInput, CardGrid, CountryGrid, CountryCard, LoadingGrid,
-│       │                       EmptyState, ErrorState
-│       ├── types/              API and domain types
-│       └── App.vue
-```
-
-## Design patterns
-
-
-| Pattern | Where | Purpose |
-|---|---|---|
-
 ## Environment variables
 
 Backend variables go in `backend/.env` (template: [backend/.env.example](backend/.env.example)); `APP_PORT` goes in the root `.env`.
@@ -378,16 +289,3 @@ Backend variables go in `backend/.env` (template: [backend/.env.example](backend
 - **`/api/countries` returns 503.** The live provider failed and nothing is cached: check `COUNTRIES_RESTCOUNTRIES_API_KEY` and the logs (`make logs`; the failure is logged as "Country provider failed."), or unset the key / set `COUNTRIES_DRIVER=static`.
 - **npm crashes with `Cannot read properties of null (reading 'edgesOut')`.** That is npm 10 on this dependency tree; the project's node image installs npm 11, so use `make` / the compose `node` service rather than a local Node's npm 10.
 
-## Production
-
-[docker-compose.prod.yml](docker-compose.prod.yml) builds self-contained images (no bind mounts): `docker/prod/php.Dockerfile` (php-fpm with `--no-dev`, optimized autoloader and opcache) and `docker/prod/nginx.Dockerfile` (builds the Vue app and serves the static files, proxying `/api`, `/login`, `/callback` and `/logout` to php-fpm). The PHP entrypoint caches config, routes and events and makes a best-effort `countries:warm` on start. Application code is root-owned in the image; only `storage` and `bootstrap/cache` are writable by `www-data`. The stack still uses Redis and a `scheduler` container.
-
-To put it behind a TLS-terminating proxy, forward `X-Forwarded-Proto` and `X-Forwarded-Host`. nginx passes them on to Laravel, which trusts them because php-fpm is reachable only from nginx; keep it unpublished. Set `SESSION_SECURE_COOKIE=true` and an `https` `APP_URL` there.
-
-```bash
-make prod-build     # build images
-make prod-up        # start in the background on APP_PORT (default 8080), project name feedthebet-prod
-make prod-down      # stop and remove containers and volumes
-```
-
-It reads configuration from `backend/.env` and forces `APP_ENV=production`, `APP_DEBUG=false` and logging to stderr. Before a real deployment: set `APP_URL` to the public HTTPS URL, `SESSION_SECURE_COOKIE=true`, a dedicated `AUTH0_COOKIE_SECRET`, add the production URLs to the Auth0 callback/logout lists, and terminate TLS in front of nginx. Dev and prod both default to port 8080, so stop one before starting the other or set `APP_PORT`.
