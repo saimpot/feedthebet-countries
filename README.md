@@ -2,7 +2,6 @@
 
 A small full-stack app for the FTB PHP Full Stack Developer task. A **Laravel 12** backend fetches country names and flags from [restcountries.com](https://restcountries.com) and exposes them as a JSON API. A **Vue 3** single-page app, available only to logged-in users, shows them as a searchable grid. Login is handled by **Auth0** (regular web application, server-side session). The country source sits behind an interface, so it can be swapped by changing one environment variable, and responses are cached in Redis with stale-while-revalidate. Everything runs in Docker.
 
-- Implementation plan and progress log: [docs/IMPLEMENTATION_PLAN.md](docs/IMPLEMENTATION_PLAN.md), [docs/PROGRESS.md](docs/PROGRESS.md)
 
 ## Contents
 

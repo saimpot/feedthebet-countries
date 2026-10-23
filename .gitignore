@@ -19,3 +19,10 @@ backend/.phpunit.cache/
 frontend/node_modules/
 frontend/dist/
 frontend/coverage/
+
+# AI assistant / development-process files (kept locally, not part of the deliverable)
+CLAUDE.md
+.claude/
+docs/IMPLEMENTATION_PLAN.md
+docs/PROGRESS.md
+docs/pattern-notes.md
