@@ -99,6 +99,7 @@ Run `make help` to list all targets.
 4. Save changes. Copy **Domain**, **Client ID** and **Client Secret** from the same tab.
 5. Go to **Applications → APIs → Create API**. Give it a name (for example "FeedTheBet API") and an identifier such as `https://feedthebet-api`, and keep the **RS256** signing algorithm. The identifier is only a label and is never called.
    This step is required. Without an audience, Auth0 returns an encrypted opaque access token. The Laravel SDK decodes the access token as a JWT, so the callback then fails with *"The JWT string must contain two dots"*.
+   Then authorize the application to use this API for user logins. Open the API's **Application Access** tab (or the application's **APIs** tab) and allow **User Access** for your Regular Web Application. Otherwise the callback fails with *"Client … is not authorized to access resource server"*.
 6. Put the values into `backend/.env`:
 
    ```dotenv
@@ -368,6 +369,7 @@ Backend variables go in `backend/.env` (template: [backend/.env.example](backend
 - **Changed `.env` but nothing happens.** Run `docker compose exec --user app php php artisan config:clear`. Settings are read from the config cache if one exists.
 - **Login loops or "Invalid state"/callback errors.** Check that the Auth0 Allowed Callback URL is exactly `http://localhost:8080/callback`, that `APP_URL` matches the URL in the browser, and that `SESSION_SAME_SITE=lax`. Clear cookies for `localhost`.
 - **"The JWT string must contain two dots" on `/callback`.** `AUTH0_AUDIENCE` is missing, so Auth0 returned an encrypted opaque access token. Create an API in Auth0 (Applications → APIs), set its identifier as `AUTH0_AUDIENCE`, then run `config:clear` and log in again.
+- **"Client … is not authorized to access resource server" on `/callback`.** The application is not allowed to request tokens for the API. In Auth0, open Applications → APIs → your API → Application Access and authorize your application for user access, then log in again.
 - **Port 8080 is busy.** Set `APP_PORT=8081` in the root `.env`, `make up`, and update `APP_URL` and the Auth0 callback/logout URLs to the new port.
 - **`/api/countries` returns 503.** The live provider failed and nothing is cached: check `COUNTRIES_RESTCOUNTRIES_API_KEY` and the logs (`make logs`; the failure is logged as "Country provider failed."), or unset the key / set `COUNTRIES_DRIVER=static`.
 - **npm crashes with `Cannot read properties of null (reading 'edgesOut')`.** That is npm 10 on this dependency tree; the project's node image installs npm 11, so use `make` / the compose `node` service rather than a local Node's npm 10.
