@@ -283,7 +283,7 @@ docker compose run --rm --user app php composer lint      # Pint --test (run ./v
 docker compose run --rm --user app php composer analyse   # Larastan (config: backend/phpstan.neon, level 8)
 ```
 
-CI ([.github/workflows/ci.yml](.github/workflows/ci.yml)) runs on pushes to `main` and on pull requests: Pint, Larastan and Pest for the backend; ESLint/oxlint, type-check, Vitest and a production build for the frontend; and a build of the production Docker images.
+CI ([.github/workflows/ci.yml](.github/workflows/ci.yml)) runs on pushes to `master` and on pull requests: Pint, Larastan and Pest for the backend; ESLint/oxlint, type-check, Vitest and a production build for the frontend; and a build of the production Docker images.
 
 **What is covered**
 
