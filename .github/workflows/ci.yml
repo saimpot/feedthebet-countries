@@ -2,6 +2,7 @@ name: CI
 
 on:
   push:
+    branches: [main]
   pull_request:
 
 concurrency:
@@ -78,7 +79,7 @@ jobs:
       - run: npm run lint
       - run: npm run type-check
       - run: npm test
-      - run: npm run build
+      - run: npm run build-only
 
   docker:
     name: Production images
