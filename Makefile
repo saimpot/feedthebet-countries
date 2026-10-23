@@ -1,5 +1,5 @@
 .DEFAULT_GOAL := help
-.PHONY: help up down build install test backend-test frontend-test lint warm logs sh-php sh-node
+.PHONY: help up down build install test backend-test frontend-test lint warm logs sh-php sh-node prod-build prod-up prod-down
 
 COMPOSE  ?= docker compose
 PHP_RUN  = $(COMPOSE) run --rm --user app php
@@ -17,11 +17,11 @@ down: ## Stop and remove containers
 build: ## Build the docker images
 	$(COMPOSE) build
 
-install: build ## First-time setup: env files, composer + npm install, app key
+install: build ## First-time setup: env files, composer + npm install, app key (only if unset)
 	@test -f .env || cp .env.example .env
 	@test -f backend/.env || cp backend/.env.example backend/.env
 	$(PHP_RUN) composer install --no-interaction
-	$(PHP_RUN) php artisan key:generate --ansi
+	@grep -Eq "^APP_KEY=.+" backend/.env || $(PHP_RUN) php artisan key:generate --ansi
 	$(NODE_RUN) npm install
 	$(COMPOSE) up -d
 
@@ -51,9 +51,7 @@ sh-php: ## Shell in the php container
 sh-node: ## Shell in the node container
 	$(COMPOSE) exec node sh
 
-PROD_COMPOSE ?= docker compose -p feedthebet-prod -f docker-compose.prod.yml
-
-.PHONY: prod-build prod-up prod-down
+PROD_COMPOSE ?= $(COMPOSE) -f docker-compose.prod.yml
 
 prod-build: ## Build the production images
 	$(PROD_COMPOSE) build

@@ -9,6 +9,8 @@ COPY frontend/ ./
 RUN npm run build
 
 FROM nginx:1.27-alpine
+COPY docker/nginx/forwarded-maps.conf /etc/nginx/conf.d/00-forwarded-maps.conf
+COPY docker/nginx/laravel.conf /etc/nginx/laravel.conf
 COPY docker/nginx/prod.conf /etc/nginx/conf.d/default.conf
 COPY --from=build /app/dist /usr/share/nginx/html
 EXPOSE 80

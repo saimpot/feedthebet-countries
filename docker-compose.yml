@@ -15,8 +15,9 @@ services:
     ports:
       - "${APP_PORT:-8080}:80"
     volumes:
+      - ./docker/nginx/forwarded-maps.conf:/etc/nginx/conf.d/00-forwarded-maps.conf:ro
       - ./docker/nginx/default.conf:/etc/nginx/conf.d/default.conf:ro
-      - ./backend:/var/www/backend:ro
+      - ./docker/nginx/laravel.conf:/etc/nginx/laravel.conf:ro
     depends_on:
       - php
       - node
@@ -26,6 +27,7 @@ services:
 
   scheduler:
     <<: *php
+    user: app
     command: php artisan schedule:work
     restart: unless-stopped
 

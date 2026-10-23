@@ -1,7 +1,7 @@
 # Production stack: images are self-contained (no bind mounts).
 #   docker compose -f docker-compose.prod.yml up -d --build
 # Dev and prod both default to port 8080; override with APP_PORT (e.g. APP_PORT=8081)
-# and use a separate project name (-p feedthebet-prod) to run them side by side.
+# to run them side by side (the compose project names differ).
 name: feedthebet-prod
 
 x-php: &php

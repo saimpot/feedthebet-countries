@@ -11,7 +11,7 @@ FROM php:8.3-fpm-alpine
 
 RUN apk add --no-cache icu-libs libzip \
     && apk add --no-cache --virtual .build-deps $PHPIZE_DEPS icu-dev libzip-dev linux-headers \
-    && docker-php-ext-install -j"$(nproc)" intl zip bcmath pcntl opcache \
+    && docker-php-ext-install -j"$(nproc)" intl zip bcmath opcache \
     && pecl install redis \
     && docker-php-ext-enable redis \
     && apk del .build-deps \
@@ -28,7 +28,8 @@ RUN { \
     && sed -i 's/^user = .*/user = www-data/; s/^group = .*/group = www-data/' /usr/local/etc/php-fpm.d/www.conf
 
 WORKDIR /var/www/backend
-COPY --from=vendor --chown=www-data:www-data /app ./
+# Code stays root-owned (read-only for the runtime user); only storage and bootstrap/cache are writable.
+COPY --from=vendor /app ./
 RUN mkdir -p storage/framework/cache storage/framework/sessions storage/framework/views storage/logs bootstrap/cache \
     && chown -R www-data:www-data storage bootstrap/cache
 
